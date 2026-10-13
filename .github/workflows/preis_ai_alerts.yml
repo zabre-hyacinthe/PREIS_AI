@@ -14,6 +14,9 @@ on:
       tiers:
         description: "Paliers (ex: immediate,weekly,monthly) - vide = selon le calendrier"
         default: ""
+      window_days:
+        description: "TEST : fenetre en jours sur la date de publication (ex: 90). Vide = normal (7 j / 31 j)"
+        default: ""
 
 permissions:
   contents: write
@@ -91,7 +94,9 @@ jobs:
         env:
           PREIS_DRY_RUN: ${{ steps.mode.outputs.dry }}
           PREIS_TIERS: ${{ steps.mode.outputs.tiers }}
-        run: Rscript R/AI/64_route_alerts.R
+          WIN: ${{ github.event.inputs.window_days }}
+        run: |
+          if [ -n "$WIN" ]; then Rscript R/AI/64_route_alerts.R "$(date -u +%F)" "$WIN"; else Rscript R/AI/64_route_alerts.R; fi
 
       - name: Envoi depuis le manifeste
         env:
@@ -102,6 +107,7 @@ jobs:
       - name: Resume (sans adresses)
         run: |
           f=$(ls -d data/outputs/ai/alerting/preview_* | tail -1)
+          echo "Messages prepares: $(tail -n +2 $f/manifest.csv 2>/dev/null | wc -l) | a envoyer: $(grep -c ',TRUE,' $f/manifest.csv 2>/dev/null || echo 0)" 
           echo "### Alertes - $(date -u +%F)" >> "$GITHUB_STEP_SUMMARY"
           echo "Simulation: ${{ steps.mode.outputs.dry }} | paliers: ${{ steps.mode.outputs.tiers }}" >> "$GITHUB_STEP_SUMMARY"
           [ -f "$f/resume_routage.csv" ] && cut -d, -f1-4 "$f/resume_routage.csv" >> "$GITHUB_STEP_SUMMARY" || true
