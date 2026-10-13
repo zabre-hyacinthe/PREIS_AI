@@ -71,6 +71,9 @@ tx <- function(k, ...) {                       # traduction avec repli sur l'ang
   a <- list(...); for (n in names(a)) v <- gsub(paste0("{", n, "}"), a[[n]], v, fixed = TRUE)
   v
 }
+## [20261013] Etiquette de pertinence (Afrique / maladie prioritaire / generique)
+rel_key <- function(dis, afr) ifelse(afr %in% c("High","Moderate"), "rel_africa", ifelse(dis %in% PRIORITY_DISEASES, "rel_prio", "rel_generic"))
+rel_of <- function(r) { k <- rel_key(r$disease_primary, if (is.null(r$africa_relevance_level)) "" else r$africa_relevance_level); tx(k) }
 lim_of <- function(r) {
   r[is.na(r)] <- ""
   l <- character()
@@ -102,13 +105,13 @@ item_html <- function(r, why) {
   sprintf(paste0("<div style='border-", if (LANGC == "AR") "right" else "left", ":4px solid #7A1D2F;padding:6px 10px;margin:10px 0'>",
     "<b>%s</b><br/>%s &middot; %s%s &middot; %s<br/>",
     tx("disease"), " : %s &middot; ", tx("country"), " : %s &middot; ", tx("method"), " : %s &middot; ", tx("application"), " : %s<br/>",
-    tx("priority"), " : %s (", tx("score"), " %s) &middot; ", tx("evidence"), " : %s<br/>",
+    tx("priority"), " : %s (", tx("score"), " %s) &middot; ", tx("evidence"), " : %s &middot; %s<br/>",
     "<i>", tx("why"), " : %s</i><br/>",
     "<b>", tx("implication"), " :</b> %s<br/><b>", tx("limit"), " :</b> %s<br/>",
     "<a href='%s'>%s</a></div>"),
     esc(r$title), esc(au), if (nzchar(r$journal)) paste0(esc(r$journal), " &middot; ") else "", esc(substr(r$publication_date,1,10)), esc(r$record_origin),
     esc(if (!is.null(r$disease_mentioned) && nzchar(r$disease_mentioned) && r$disease_primary %in% c("Unspecified","")) paste0(tx("not_determined"), " (", tx("low_conf"), " : ", r$disease_mentioned, ")") else paste0(r$disease_primary, if (identical(r$disease_confidence, "Low")) paste0(" (", tx("low_conf"), ")") else "")), esc(if (nzchar(r$country) && r$country != "Unspecified") r$country else paste0(tx("not_determined"), if (!is.null(r$countries_mentioned) && nzchar(r$countries_mentioned)) paste0(" (", tx("mentioned_unvalidated"), " : ", r$countries_mentioned, ")") else "")), esc(r$method_family_primary),
-    esc(ifelse(nzchar(r$application_type_primary), r$application_type_primary, tx("not_classified"))), esc(r$priority_level), esc(r$priority_score), esc(ifelse(nzchar(r$ai_evidence_type), r$ai_evidence_type, "UNKNOWN")),
+    esc(ifelse(nzchar(r$application_type_primary), r$application_type_primary, tx("not_classified"))), esc(r$priority_level), esc(r$priority_score), esc(ifelse(nzchar(r$ai_evidence_type), r$ai_evidence_type, "UNKNOWN")), esc(rel_of(r)),
     esc(why), esc(impl_of(r)), esc(lim_of(r)), esc(link), esc(link))
 }
 
@@ -177,8 +180,12 @@ for (i in seq_len(nrow(rec))) {
     ELIG[[length(ELIG) + 1]] <- data.frame(group = g, rcc = r$rcc, country = r$country, tier = tr, record_id = dd$record_id, disease_primary = dd$disease_primary, application = dd$application_type_primary, priority_level = dd$priority_level, stringsAsFactors = FALSE)
     mx <- if (tr == "immediate") MAX_IMMEDIATE_PER_DAY else MAX_ITEMS[[ifelse(grepl("^PARTENAIRE",g),"PARTENAIRE",g)]]
     ## [20261013] Digest : methodes appliquees/validees d'abord ; revues, theorie, indetermine -> section "Also noted" (max 3, hors immediat)
-    main_ok <- dd$ai_evidence_type %in% c("APPLICATION", "VALIDATION")
+    main_ok <- dd$ai_evidence_type %in% c("APPLICATION", "VALIDATION"); n_hidden <- 0
     if (tr == "immediate") { shown <- head(dd, mx); n_main <- nrow(shown) } else {
+      gen <- rel_key(dd$disease_primary, ifelse(is.na(dd$africa_relevance_level), "", dd$africa_relevance_level)) == "rel_generic"
+      hide <- if (g == "SDI") (!main_ok & gen) else rep(FALSE, nrow(dd))   # SDI : generiques sans methode appliquee -> une ligne
+      n_hidden <- sum(hide); dd <- dd[!hide, , drop = FALSE]; main_ok <- main_ok[!hide]
+      if (!nrow(dd)) next
       m1 <- head(dd[main_ok, , drop = FALSE], mx); m2 <- head(dd[!main_ok, , drop = FALSE], 3)
       shown <- rbind(m1, m2); n_main <- nrow(m1) }
     T <- get_tpl(g, lang)
@@ -186,6 +193,7 @@ for (i in seq_len(nrow(rec))) {
     its <- vapply(seq_len(nrow(shown)), function(k) item_html(shown[k, ], why(shown[k, ])), "")
     if (n_main < nrow(shown)) its <- append(its, paste0("<h4 style='margin:16px 0 4px;color:#555'>", esc(tx("also_noted")), "</h4>"), after = n_main)
     items <- paste(its, collapse = "\n")
+    if (tr != "immediate" && n_hidden > 0) items <- paste0(items, "\n<p style='color:#666;font-size:12px'>", esc(tx("generic_hidden", n = n_hidden)), "</p>")
     dash <- sprintf("<div style='margin:14px 0;padding:8px 10px;background:#f4f4f4'><b>%s :</b> <a href='%s'>%s</a><br/><span style='font-size:12px'>%s</span></div>",
       tx("dashboard"), DASHBOARD_URL, DASHBOARD_URL, tx("dash_hint"))
     items <- paste0(items, "\n", dash)
