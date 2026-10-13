@@ -35,3 +35,5 @@ impl_review,"Literature synthesis, useful to frame methods; not a method to adap
 pv_not_sent,PREVIEW — not sent.,PREVIEW — non envoyé.,,,,
 pv_test_to,Test recipient: ,Destinataire de test : ,,,,
 pv_intended, (intended recipient: , (destinataire réel prévu : ,,,,
+not_classified,Not classified,Non classé,غير مصنف,Não classificado,Sin clasificar,Haijaainishwa
+also_noted,Also noted – reviews and theoretical work (not methods to adapt directly),À noter également – revues et travaux théoriques (méthodes non directement adaptables),ملاحظات إضافية – مراجعات وأعمال نظرية (ليست طرقاً قابلة للتكييف مباشرة),Também de notar – revisões e trabalhos teóricos (métodos não diretamente adaptáveis),También a destacar – revisiones y trabajos teóricos (métodos no adaptables directamente),Pia zingatia – mapitio na kazi za kinadharia (si mbinu za kubadilishwa moja kwa moja)

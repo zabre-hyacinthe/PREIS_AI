@@ -100,15 +100,15 @@ item_html <- function(r, why) {
   au <- strsplit(r$authors, ";")[[1]]; au <- paste0(trimws(au[seq_len(min(3,length(au)))]), collapse=", ")
   if (length(strsplit(r$authors, ";")[[1]]) > 3) au <- paste0(au, " et al.")
   sprintf(paste0("<div style='border-", if (LANGC == "AR") "right" else "left", ":4px solid #7A1D2F;padding:6px 10px;margin:10px 0'>",
-    "<b>%s</b><br/>%s &middot; %s &middot; %s &middot; %s<br/>",
+    "<b>%s</b><br/>%s &middot; %s%s &middot; %s<br/>",
     tx("disease"), " : %s &middot; ", tx("country"), " : %s &middot; ", tx("method"), " : %s &middot; ", tx("application"), " : %s<br/>",
     tx("priority"), " : %s (", tx("score"), " %s) &middot; ", tx("evidence"), " : %s<br/>",
     "<i>", tx("why"), " : %s</i><br/>",
     "<b>", tx("implication"), " :</b> %s<br/><b>", tx("limit"), " :</b> %s<br/>",
     "<a href='%s'>%s</a></div>"),
-    esc(r$title), esc(au), esc(ifelse(nzchar(r$journal), r$journal, tx("no_journal"))), esc(substr(r$publication_date,1,10)), esc(r$record_origin),
+    esc(r$title), esc(au), if (nzchar(r$journal)) paste0(esc(r$journal), " &middot; ") else "", esc(substr(r$publication_date,1,10)), esc(r$record_origin),
     esc(r$disease_primary), esc(ifelse(nzchar(r$country),r$country,tx("not_determined"))), esc(r$method_family_primary),
-    esc(r$application_type_primary), esc(r$priority_level), esc(r$priority_score), esc(r$ai_evidence_type),
+    esc(ifelse(nzchar(r$application_type_primary), r$application_type_primary, tx("not_classified"))), esc(r$priority_level), esc(r$priority_score), esc(ifelse(nzchar(r$ai_evidence_type), r$ai_evidence_type, "UNKNOWN")),
     esc(why), esc(impl_of(r)), esc(lim_of(r)), esc(link), esc(link))
 }
 
@@ -176,10 +176,16 @@ for (i in seq_len(nrow(rec))) {
     if (!nrow(dd)) next
     ELIG[[length(ELIG) + 1]] <- data.frame(group = g, rcc = r$rcc, country = r$country, tier = tr, record_id = dd$record_id, disease_primary = dd$disease_primary, application = dd$application_type_primary, priority_level = dd$priority_level, stringsAsFactors = FALSE)
     mx <- if (tr == "immediate") MAX_IMMEDIATE_PER_DAY else MAX_ITEMS[[ifelse(grepl("^PARTENAIRE",g),"PARTENAIRE",g)]]
-    shown <- head(dd, mx)
+    ## [20261013] Digest : methodes appliquees/validees d'abord ; revues, theorie, indetermine -> section "Also noted" (max 3, hors immediat)
+    main_ok <- dd$ai_evidence_type %in% c("APPLICATION", "VALIDATION")
+    if (tr == "immediate") { shown <- head(dd, mx); n_main <- nrow(shown) } else {
+      m1 <- head(dd[main_ok, , drop = FALSE], mx); m2 <- head(dd[!main_ok, , drop = FALSE], 3)
+      shown <- rbind(m1, m2); n_main <- nrow(m1) }
     T <- get_tpl(g, lang)
     why <- function(rw) tx("why_fmt", g = g, t = tr, p = rw$priority_level)
-    items <- paste(vapply(seq_len(nrow(shown)), function(k) item_html(shown[k, ], why(shown[k, ])), ""), collapse = "\n")
+    its <- vapply(seq_len(nrow(shown)), function(k) item_html(shown[k, ], why(shown[k, ])), "")
+    if (n_main < nrow(shown)) its <- append(its, paste0("<h4 style='margin:16px 0 4px;color:#555'>", esc(tx("also_noted")), "</h4>"), after = n_main)
+    items <- paste(its, collapse = "\n")
     dash <- sprintf("<div style='margin:14px 0;padding:8px 10px;background:#f4f4f4'><b>%s :</b> <a href='%s'>%s</a><br/><span style='font-size:12px'>%s</span></div>",
       tx("dashboard"), DASHBOARD_URL, DASHBOARD_URL, tx("dash_hint"))
     items <- paste0(items, "\n", dash)

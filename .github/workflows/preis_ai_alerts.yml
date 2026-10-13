@@ -98,6 +98,11 @@ jobs:
         run: |
           if [ -n "$WIN" ]; then Rscript R/AI/64_route_alerts.R "$(date -u +%F)" "$WIN"; else Rscript R/AI/64_route_alerts.R; fi
 
+      - name: Controle qualite (bloque l'envoi reel si erreur critique)
+        env:
+          PREIS_DRY_RUN: ${{ steps.mode.outputs.dry }}
+        run: Rscript R/AI/71_qa_alert_checks.R
+
       - name: Envoi depuis le manifeste
         env:
           PREIS_TEST_TAG: ${{ vars.PREIS_TEST_TAG }}
