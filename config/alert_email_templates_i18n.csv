@@ -1,7 +1,7 @@
 ﻿Groupe,lang,Subject,Body,Note,Signature
 SDI,FR,[PREIS AI] {n} publication(s) IA à examiner – SDI – {periode},"Chère équipe SDI,
 
-PREIS AI Tracker a détecté {n} publication(s) récente(s) sur l'IA appliquée à la surveillance et à la riposte, dont {n_high} de priorité élevée (voir détails ci-dessous). Les alertes sont classées par maladie ; les plus urgentes figurent en tête.
+PREIS AI Tracker a détecté {n} publication(s) récente(s) sur l'IA appliquée à la surveillance et à la riposte, dont {n_high} de priorité élevée (voir détails ci-dessous). Les alertes sont classées par score de priorité ; les plus urgentes figurent en tête.
 
 {note}
 
@@ -15,7 +15,7 @@ Dr Raogo Hyacinthe ZABRÉ
 PREIS – Africa CDC"
 SDI,EN,[PREIS AI] {n} AI publication(s) to review – SDI – {period},"Dear SDI team,
 
-PREIS AI Tracker detected {n} recent publication(s) on AI applied to surveillance and response, {n_high} of them high priority (details below). Items are grouped by disease with the most urgent first.
+PREIS AI Tracker detected {n} recent publication(s) on AI applied to surveillance and response, {n_high} of them high priority (details below). Items are ordered by priority score, most urgent first.
 
 {note}
 
@@ -29,7 +29,7 @@ Dr Raogo Hyacinthe ZABRÉ
 PREIS – Africa CDC"
 SDI,AR,[PREIS AI] {n} منشورًا عن الذكاء الاصطناعي للمراجعة – SDI – {period},"السادة فريق SDI،
 
-رصد PREIS AI Tracker {n} منشورًا حديثًا عن تطبيق الذكاء الاصطناعي في الترصد والاستجابة، منها {n_high} ذات أولوية عالية (التفاصيل أدناه). الإشارات مجمّعة حسب المرض وتبدأ بالأكثر إلحاحًا.
+رصد PREIS AI Tracker {n} منشورًا حديثًا عن تطبيق الذكاء الاصطناعي في الترصد والاستجابة، منها {n_high} ذات أولوية عالية (التفاصيل أدناه). الإشارات مرتّبة حسب درجة الأولوية وتبدأ بالأكثر إلحاحًا.
 
 {note}
 
@@ -43,7 +43,7 @@ SDI,AR,[PREIS AI] {n} منشورًا عن الذكاء الاصطناعي للم
 PREIS – مراكز أفريقيا لمكافحة الأمراض والوقاية منها (Africa CDC)"
 SDI,PT,[PREIS AI] {n} publicação(ões) de IA para revisão – SDI – {period},"Caros colegas da SDI,
 
-O PREIS AI Tracker detetou {n} publicação(ões) recente(s) sobre IA aplicada à vigilância e à resposta, {n_high} das quais de alta prioridade (detalhes abaixo). Os itens estão agrupados por doença, com os mais urgentes em primeiro lugar.
+O PREIS AI Tracker detetou {n} publicação(ões) recente(s) sobre IA aplicada à vigilância e à resposta, {n_high} das quais de alta prioridade (detalhes abaixo). Os itens estão ordenados por pontuação de prioridade, com os mais urgentes em primeiro lugar.
 
 {note}
 
@@ -57,7 +57,7 @@ Dr Raogo Hyacinthe ZABRÉ
 PREIS – Africa CDC"
 SDI,ES,[PREIS AI] {n} publicación(es) de IA para revisar – SDI – {period},"Estimado equipo de la SDI:
 
-PREIS AI Tracker detectó {n} publicación(es) reciente(s) sobre IA aplicada a la vigilancia y la respuesta, {n_high} de ellas de alta prioridad (detalles abajo). Los elementos están agrupados por enfermedad, con los más urgentes primero.
+PREIS AI Tracker detectó {n} publicación(es) reciente(s) sobre IA aplicada a la vigilancia y la respuesta, {n_high} de ellas de alta prioridad (detalles abajo). Los elementos están ordenados por puntuación de prioridad, con los más urgentes primero.
 
 {note}
 
@@ -71,7 +71,7 @@ Dr. Raogo Hyacinthe ZABRÉ
 PREIS – Africa CDC"
 SDI,SW,[PREIS AI] Machapisho {n} ya AI ya kupitiwa – SDI – {period},"Timu ya SDI mpendwa,
 
-PREIS AI Tracker imebaini machapisho {n} ya hivi karibuni kuhusu matumizi ya akili bandia katika ufuatiliaji na mwitikio, kati yake {n_high} ni ya kipaumbele cha juu (maelezo hapa chini). Vipengele vimepangwa kwa ugonjwa, vya dharura zaidi vikiwa vya kwanza.
+PREIS AI Tracker imebaini machapisho {n} ya hivi karibuni kuhusu matumizi ya akili bandia katika ufuatiliaji na mwitikio, kati yake {n_high} ni ya kipaumbele cha juu (maelezo hapa chini). Vipengele vimepangwa kwa alama ya kipaumbele, vya dharura zaidi vikiwa vya kwanza.
 
 {note}
 

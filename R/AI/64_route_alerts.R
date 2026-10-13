@@ -107,7 +107,7 @@ item_html <- function(r, why) {
     "<b>", tx("implication"), " :</b> %s<br/><b>", tx("limit"), " :</b> %s<br/>",
     "<a href='%s'>%s</a></div>"),
     esc(r$title), esc(au), if (nzchar(r$journal)) paste0(esc(r$journal), " &middot; ") else "", esc(substr(r$publication_date,1,10)), esc(r$record_origin),
-    esc(r$disease_primary), esc(ifelse(nzchar(r$country),r$country,tx("not_determined"))), esc(r$method_family_primary),
+    esc(paste0(r$disease_primary, if (identical(r$disease_confidence, "Low")) paste0(" (", tx("low_conf"), ")") else "")), esc(if (nzchar(r$country) && r$country != "Unspecified") r$country else paste0(tx("not_determined"), if (!is.null(r$countries_mentioned) && nzchar(r$countries_mentioned)) paste0(" (", tx("mentioned_unvalidated"), " : ", r$countries_mentioned, ")") else "")), esc(r$method_family_primary),
     esc(ifelse(nzchar(r$application_type_primary), r$application_type_primary, tx("not_classified"))), esc(r$priority_level), esc(r$priority_score), esc(ifelse(nzchar(r$ai_evidence_type), r$ai_evidence_type, "UNKNOWN")),
     esc(why), esc(impl_of(r)), esc(lim_of(r)), esc(link), esc(link))
 }
