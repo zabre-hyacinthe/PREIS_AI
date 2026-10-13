@@ -23,7 +23,7 @@ for (i in seq_len(nrow(todo))) {
   html <- paste(readLines(file.path(d, r$file), warn = FALSE, encoding = "UTF-8"), collapse = "\n")
   html <- gsub("(?s)<!--BANNER-->.*?<!--/BANNER-->", "", html, perl = TRUE)
   body <- sub("(?s)^.*?<body[^>]*>", "", html, perl = TRUE); body <- sub("(?s)</body>.*$", "", body, perl = TRUE)
-  ok <- tryCatch({ ai_smtp_send(blastula::compose_email(body = htmltools::HTML(body)), to = r$to_real, subject = r$subject, verbose = FALSE); TRUE },
+  ok <- tryCatch({ ai_smtp_send(blastula::compose_email(body = htmltools::HTML(body)), to = r$to_real, subject = if (nzchar(Sys.getenv("PREIS_TEST_TAG"))) paste0("[TEST for ", r$group_key, " / ", r$tier, "] ", r$subject) else r$subject, verbose = FALSE); TRUE },
                  error = function(e) { cat("ECHEC", r$group_key, ":", conditionMessage(e), "\n"); FALSE })
   if (ok) {
     nok <- nok + 1
