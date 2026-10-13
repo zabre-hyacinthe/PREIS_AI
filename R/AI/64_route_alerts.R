@@ -72,6 +72,7 @@ tx <- function(k, ...) {                       # traduction avec repli sur l'ang
   v
 }
 lim_of <- function(r) {
+  r[is.na(r)] <- ""
   l <- character()
   if (r$ai_evidence_type %in% c("THEORY","UNKNOWN")) l <- c(l, tx("lim_theory"))
   if (r$ai_evidence_type == "REVIEW") l <- c(l, tx("lim_review"))
@@ -82,6 +83,7 @@ lim_of <- function(r) {
   paste0(toupper(substr(l[1],1,1)), substr(paste(l, collapse="; "),2,1000))
 }
 impl_of <- function(r) {
+  r[is.na(r)] <- ""
   a <- r$application_type_primary
   base <- if (r$disease_primary %in% FILOVIRUS) tx("impl_filo") else
           if (r$disease_primary %in% PRIORITY_DISEASES) tx("impl_prio", d = r$disease_primary) else tx("impl_generic")
@@ -93,6 +95,7 @@ impl_of <- function(r) {
 }
 esc <- function(s) { s <- gsub("&","&amp;",s,fixed=TRUE); s <- gsub("<","&lt;",s,fixed=TRUE); gsub(">","&gt;",s,fixed=TRUE) }
 item_html <- function(r, why) {
+  r[is.na(r)] <- ""
   link <- if (nzchar(r$doi)) paste0("https://doi.org/", r$doi) else r$url
   au <- strsplit(r$authors, ";")[[1]]; au <- paste0(trimws(au[seq_len(min(3,length(au)))]), collapse=", ")
   if (length(strsplit(r$authors, ";")[[1]]) > 3) au <- paste0(au, " et al.")
