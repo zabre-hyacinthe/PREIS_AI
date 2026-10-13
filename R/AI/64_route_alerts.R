@@ -26,7 +26,7 @@ FILO_COUNTRIES    <- c("Democratic Republic of the Congo","Uganda","South Sudan"
                        "Tanzania","Kenya","Central African Republic","Zambia","Angola","Congo")
 WINDOW_DAYS  <- c(immediate = 7, weekly = 7, monthly = 31)   # fenetre sur la date de publication
 ## Arg 2 (optionnel) = fenetre unique en jours pour un premier passage de rattrapage (ex. 90)
-if (length(args) >= 2) WINDOW_DAYS[] <- as.numeric(args[2])
+if (length(args) >= 2) { .w <- suppressWarnings(as.numeric(gsub("[^0-9.]", "", args[2]))); if (!is.na(.w) && .w > 0) WINDOW_DAYS[] <- .w else message("Fenetre ignoree (valeur non numerique : ", args[2], ") -> fenetres par defaut") }
 MAX_ITEMS    <- c(SDI = 15, CELLULE_EBOLA = 15, RCC = 10, MS = 5, PARTENAIRE = 10)
 MAX_IMMEDIATE_PER_DAY <- 3
 
