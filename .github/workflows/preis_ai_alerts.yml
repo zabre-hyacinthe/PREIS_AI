@@ -1,0 +1,116 @@
+name: PREIS AI Tracker - Conditional alerts
+
+# Rythme : tous les jours 06:30 UTC. Paliers : immediat = chaque jour ; hebdo = lundi ; mensuel = le 1er.
+# SECURITE : depot public -> destinataires reels uniquement dans le secret ALERT_RECIPIENTS_CSV (jamais dans un fichier).
+# Mode par defaut = SIMULATION (aucun email). Envoi reel seulement si la variable de depot PREIS_ALERTS_LIVE = true.
+on:
+  schedule:
+    - cron: "30 6 * * *"
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Simulation (true) ou envoi reel (false)"
+        default: "true"
+      tiers:
+        description: "Paliers (ex: immediate,weekly,monthly) - vide = selon le calendrier"
+        default: ""
+
+permissions:
+  contents: write
+
+concurrency:
+  group: preis-ai-alerts
+  cancel-in-progress: false
+
+jobs:
+  alerts:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      PREIS_ROOT: ${{ github.workspace }}
+      PREIS_TRACKER_PATH: data/alerting/alert_candidates.csv
+      SMTP_USER: ${{ secrets.SMTP_USER }}
+      SMTP_PASS: ${{ secrets.SMTP_PASS }}
+      ALERT_FROM: ${{ secrets.ALERT_FROM }}
+      SMTP_HOST: smtp.gmail.com
+      SMTP_PORT: "465"
+      LC_ALL: C.utf8
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Determiner mode et paliers
+        id: mode
+        run: |
+          DRY="true"
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            DRY="${{ github.event.inputs.dry_run }}"
+          elif [ "${{ vars.PREIS_ALERTS_LIVE }}" = "true" ]; then
+            DRY="false"
+          fi
+          T="${{ github.event.inputs.tiers }}"
+          if [ -z "$T" ]; then
+            T="immediate"
+            [ "$(date -u +%u)" = "1" ] && T="$T,weekly"
+            [ "$(date -u +%d)" = "01" ] && T="$T,monthly"
+          fi
+          echo "dry=$DRY" >> "$GITHUB_OUTPUT"
+          echo "tiers=$T" >> "$GITHUB_OUTPUT"
+          echo "Mode simulation: $DRY | paliers: $T"
+
+      - name: Controle fraicheur des candidats
+        run: |
+          test -f data/alerting/alert_candidates.csv || { echo "alert_candidates.csv absent"; exit 1; }
+          AGE=$(( ( $(date +%s) - $(git log -1 --format=%ct -- data/alerting/alert_candidates.csv) ) / 86400 ))
+          echo "Age des candidats : $AGE jour(s)"
+          if [ "$AGE" -gt 4 ] && [ "${{ steps.mode.outputs.dry }}" = "false" ]; then
+            echo "::error::Candidats trop anciens (>4 j) : envoi reel bloque. Relancer le pipeline sur le PC."; exit 1
+          fi
+
+      - uses: r-lib/actions/setup-r@v2
+        with:
+          use-public-rspm: true
+
+      - name: Installer les paquets R
+        run: Rscript -e 'install.packages(c("blastula","dplyr","readr","tibble","htmltools"))'
+
+      - name: Charger les destinataires reels (secret)
+        env:
+          RECIP: ${{ secrets.ALERT_RECIPIENTS_CSV }}
+        run: |
+          if [ -n "$RECIP" ]; then
+            # masquer chaque adresse dans les logs
+            echo "$RECIP" | grep -oE '[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]+' | sort -u | while read -r m; do echo "::add-mask::$m"; done
+            printf '%s\n' "$RECIP" > "$RUNNER_TEMP/recipients.csv"
+            echo "PREIS_RECIPIENTS_PATH=$RUNNER_TEMP/recipients.csv" >> "$GITHUB_ENV"
+            echo "Destinataires reels charges depuis le secret."
+          else
+            echo "Pas de secret ALERT_RECIPIENTS_CSV : destinataires du depot (aucun email reel)."
+          fi
+
+      - name: Routage des alertes
+        env:
+          PREIS_DRY_RUN: ${{ steps.mode.outputs.dry }}
+          PREIS_TIERS: ${{ steps.mode.outputs.tiers }}
+        run: Rscript R/AI/64_route_alerts.R
+
+      - name: Envoi depuis le manifeste
+        env:
+          PREIS_DRY_RUN: ${{ steps.mode.outputs.dry }}
+          PREIS_TIERS: ${{ steps.mode.outputs.tiers }}
+        run: Rscript R/AI/68_send_from_manifest.R
+
+      - name: Resume (sans adresses)
+        run: |
+          f=$(ls -d data/outputs/ai/alerting/preview_* | tail -1)
+          echo "### Alertes - $(date -u +%F)" >> "$GITHUB_STEP_SUMMARY"
+          echo "Simulation: ${{ steps.mode.outputs.dry }} | paliers: ${{ steps.mode.outputs.tiers }}" >> "$GITHUB_STEP_SUMMARY"
+          [ -f "$f/resume_routage.csv" ] && cut -d, -f1-4 "$f/resume_routage.csv" >> "$GITHUB_STEP_SUMMARY" || true
+
+      - name: Enregistrer le journal anti-doublons
+        if: steps.mode.outputs.dry == 'false'
+        run: |
+          git config user.name "preis-ai-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add -f data/outputs/ai/alerting/alert_log.csv
+          git diff --cached --quiet || git commit -m "alert_log update $(date -u +%F)"
+          git pull --rebase origin "${GITHUB_REF_NAME}" && git push origin "HEAD:${GITHUB_REF_NAME}"
