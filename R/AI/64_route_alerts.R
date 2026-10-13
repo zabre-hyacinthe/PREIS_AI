@@ -11,7 +11,7 @@
 args <- commandArgs(trailingOnly = TRUE)
 ref_date <- if (length(args) >= 1) as.Date(args[1]) else Sys.Date()
 root <- Sys.getenv("PREIS_ROOT", unset = getwd())
-p <- function(...) file.path(root, ...)
+p <- function(...) { a <- file.path(...); if (grepl("^(/|[A-Za-z]:[/\\\\])", a)) a else file.path(root, a) }
 rd <- function(f) {
   d <- read.csv(f, stringsAsFactors = FALSE, encoding = "UTF-8", check.names = FALSE, colClasses = "character", na.strings = "")
   names(d) <- sub("^(\ufeff|\u00ef\u00bb\u00bf|\u00c3\u00af\u00c2\u00bb\u00c2\u00bf)", "", names(d)); d[is.na(d)] <- ""
@@ -168,8 +168,8 @@ for (i in seq_len(nrow(rec))) {
   key <- paste(x$record_id, if (g == "RCC") paste0(g, ":", r$rcc) else if (g == "MS") paste0(g, ":", r$country) else g)
   ok <- ok & !(key %in% sent_before)
   d <- x[which(ok), , drop = FALSE]; d$tier <- tier[which(ok)]
-  d <- d[order(-as.numeric(d$priority_score), d$pub_date, decreasing = FALSE), ]
-  d <- d[order(-as.numeric(d$priority_score)), ]
+  d <- d[order(-suppressWarnings(as.numeric(d$priority_score)), d$pub_date, decreasing = FALSE), ]
+  d <- d[order(-suppressWarnings(as.numeric(d$priority_score))), ]
   for (tr in intersect(c("immediate","weekly","monthly"), TIERS)) {
     dd <- d[d$tier == tr & d$pub_date >= ref_date - WINDOW_DAYS[[tr]] - ifelse(tr == "weekly", 0, 0), , drop = FALSE]
     if (tr == "monthly") dd <- d[d$tier == "monthly" & d$pub_date >= ref_date - WINDOW_DAYS[["monthly"]], , drop = FALSE]
