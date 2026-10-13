@@ -39,3 +39,4 @@ if (length(newlog)) {
   write.csv(L, logf, row.names = FALSE, fileEncoding = "UTF-8")
 }
 cat("Envoyes :", nok, "/", nrow(todo), "\n")
+if (nok < nrow(todo)) { cat("ERREUR : ", nrow(todo) - nok, " message(s) non envoye(s) -> echec du job\n"); quit(save = "no", status = 1) }
