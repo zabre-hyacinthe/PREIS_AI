@@ -74,7 +74,7 @@ jobs:
           use-public-rspm: true
 
       - name: Installer les paquets R
-        run: Rscript -e 'install.packages(c("blastula","dplyr","readr","tibble","htmltools"))'
+        run: Rscript -e 'install.packages(c("curl","blastula","dplyr","readr","tibble","htmltools"))'
 
       - name: Charger les destinataires reels (secret)
         env:
