@@ -73,8 +73,12 @@ jobs:
         with:
           use-public-rspm: true
 
-      - name: Installer les paquets R
-        run: Rscript -e 'install.packages(c("curl","blastula","dplyr","readr","tibble","htmltools"))'
+      - name: Bibliotheques systeme (curl/ssl)
+        run: sudo apt-get update -y && sudo apt-get install -y libcurl4-openssl-dev libssl-dev
+
+      - name: Installer les paquets R (echoue si un paquet manque)
+        run: |
+          Rscript -e 'p <- c("curl","blastula","dplyr","readr","tibble","htmltools"); install.packages(p, Ncpus = 2); miss <- p[!vapply(p, requireNamespace, logical(1), quietly = TRUE)]; if (length(miss)) stop("Paquets manquants : ", paste(miss, collapse = ", ")); cat("Paquets OK :", paste(p, collapse = ", "), "\n")'
 
       - name: Charger les destinataires reels (secret)
         env:
