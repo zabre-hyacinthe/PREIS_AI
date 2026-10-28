@@ -124,17 +124,19 @@ is_ebola <- x$disease_primary %in% FILOVIRUS
 ebola_ok  <- is_ebola & dis_ok & x$disease_confidence == "High" & x$priority_level %in% c("High","Moderate")
 ebola_imm <- ebola_ok & x$disease_confidence == "High" & x$ai_evidence_type %in% c("APPLICATION","VALIDATION")
 pl <- x$priority_level
+## [20261028] alerte immediate seulement pour une etude applicative ou validee ; revues/theorie -> digest (journal C021)
+ev_ok <- x$ai_evidence_type %in% c("APPLICATION","VALIDATION")
 rules <- list(
   SDI = function(d) {
-    imm <- ((pl == "High") & ((is_prio & x$disease_confidence == "High") | x$africa_relevance_level == "High")) | ebola_imm
+    imm <- (((pl == "High") & ((is_prio & x$disease_confidence == "High") | x$africa_relevance_level == "High")) & ev_ok) | ebola_imm
     wk  <- pl %in% c("High","Moderate")
     ifelse(imm, "immediate", ifelse(wk, "weekly", NA))
   },
   CELLULE_EBOLA = function(d) ifelse(ebola_imm, "immediate", ifelse(ebola_ok, "weekly",
       ifelse(x$disease_primary %in% c("Lassa fever","Crimean-Congo haemorrhagic fever") |
              (x$application_type_primary %in% c("Prediction / Forecasting","Risk Mapping / Spatial Analysis","Surveillance / Event Detection") & dis_ok & !is_ebola), "weekly", NA))),
-  RCC = function(d) ifelse(geo_ok, ifelse(pl == "High" & is_prio, "immediate", "weekly"), NA),
-  MS  = function(d) ifelse(geo_ok, ifelse(is_ebola & x$country %in% FILO_COUNTRIES, "immediate", "monthly"), NA),
+  RCC = function(d) ifelse(geo_ok, ifelse(pl == "High" & is_prio & ev_ok, "immediate", "weekly"), NA),
+  MS  = function(d) ifelse(geo_ok, ifelse(is_ebola & x$country %in% FILO_COUNTRIES & ev_ok, "immediate", "monthly"), NA),
   PARTENAIRE_OMS = function(d) ifelse(is_prio & dis_ok, "monthly", NA),
   PARTENAIRE_GENOMIQUE = function(d) ifelse(x$application_type_primary == "Laboratory / Genomic Intelligence", "monthly", NA),
   PARTENAIRE_MODELISATION = function(d) ifelse(x$application_type_primary %in% c("Prediction / Forecasting","Risk Mapping / Spatial Analysis"), "monthly", NA)
