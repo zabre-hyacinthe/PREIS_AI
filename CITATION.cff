@@ -1,7 +1,8 @@
 cff-version: 1.2.0
 message: "If you use this software, please cite it as below. Research prototype; automatic classifications are not validated for operational decisions."
 title: "PREIS AI Tracker"
-version: "2026.10.28"
+version: "2026.10.28.1"
+doi: "10.5281/zenodo.23733165"
 date-released: "2026-10-28"
 type: software
 repository-code: "https://github.com/zabre-hyacinthe/PREIS_AI"
@@ -11,4 +12,4 @@ authors:
   - family-names: "Zabré"
     given-names: "Raogo Hyacinthe"
     orcid: "https://orcid.org/0000-0001-8835-9680"
-# TODO auteur : ajouter Eric Youm et Mphatso Mudenda (ORCID, affiliation) apres leur accord ; ajouter doi: apres depot Zenodo/OSF ; choisir une licence.
+# TODO auteur : ajouter Eric Youm et Mphatso Mudenda (ORCID, affiliation) apres leur accord ; choisir une licence.
