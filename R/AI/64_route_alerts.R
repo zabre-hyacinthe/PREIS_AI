@@ -24,6 +24,18 @@ PRIORITY_DISEASES <- c("Ebola","Marburg","Lassa fever","Crimean-Congo haemorrhag
 FILOVIRUS         <- c("Ebola","Marburg")
 FILO_COUNTRIES    <- c("Democratic Republic of the Congo","Uganda","South Sudan","Rwanda","Burundi",
                        "Tanzania","Kenya","Central African Republic","Zambia","Angola","Congo")
+## [20261031] MODE EPIDEMIE (config/outbreak_mode.csv, journal C023) : tant qu'une epidemie est declaree active,
+## ses articles IA explicites (perimetre Core) sont routes plus largement : Cellule Ebola (sans condition de priorite),
+## digest SDI, et pays touches ajoutes aux pays filovirus. Desactiver : active = FALSE dans le fichier.
+OB <- if (file.exists(p("config/outbreak_mode.csv"))) rd(p("config/outbreak_mode.csv")) else
+  data.frame(disease = character(), active = character(), countries = character(), label_en = character(), label_fr = character())
+OB <- OB[toupper(trimws(OB$active)) == "TRUE", , drop = FALSE]
+OUTBREAK_DISEASES  <- unique(trimws(OB$disease))
+OUTBREAK_COUNTRIES <- unique(trimws(unlist(strsplit(OB$countries, ";"))))
+FILO_COUNTRIES <- union(FILO_COUNTRIES, OUTBREAK_COUNTRIES)
+if (nrow(OB)) cat("MODE EPIDEMIE actif :", paste(OB$disease, collapse = ", "), "| pays :", paste(OUTBREAK_COUNTRIES, collapse = ", "), "\n")
+## [20261031] Journal anti-doublons parametrable (tests : PREIS_ALERT_LOG=data/outputs/ai/alerting/alert_log_TEST.csv)
+LOGF <- p(Sys.getenv("PREIS_ALERT_LOG", "data/outputs/ai/alerting/alert_log.csv"))
 WINDOW_DAYS  <- c(immediate = 7, weekly = 7, monthly = 31)   # fenetre sur la date de publication
 ## Arg 2 (optionnel) = fenetre unique en jours pour un premier passage de rattrapage (ex. 90)
 if (length(args) >= 2) { .w <- suppressWarnings(as.numeric(gsub("[^0-9.]", "", args[2]))); if (!is.na(.w) && .w > 0) WINDOW_DAYS[] <- .w else message("Fenetre ignoree (valeur non numerique : ", args[2], ") -> fenetres par defaut") }
@@ -52,7 +64,7 @@ x$pub_date <- suppressWarnings(as.Date(substr(x$publication_date, 1, 10)))
 S1 <- x$ai_method_evidence == "explicit"
 S2 <- x$ph_scope_tier == "Core"
 S3 <- !is.na(x$pub_date) & x$pub_date <= ref_date          # date valide, pas dans le futur
-S4_log <- if (file.exists(p("data/outputs/ai/alerting/alert_log.csv"))) rd(p("data/outputs/ai/alerting/alert_log.csv")) else
+S4_log <- if (file.exists(LOGF)) rd(LOGF) else
   data.frame(record_id=character(), group=character(), recipient=character(), status=character(), run_date=character())
 sent_before <- paste(S4_log$record_id[S4_log$status == "sent"], S4_log$group[S4_log$status == "sent"])
 x$.grp_key <- NULL
@@ -126,10 +138,18 @@ ebola_imm <- ebola_ok & x$disease_confidence == "High" & x$ai_evidence_type %in%
 pl <- x$priority_level
 ## [20261028] alerte immediate seulement pour une etude applicative ou validee ; revues/theorie -> digest (journal C021)
 ev_ok <- x$ai_evidence_type %in% c("APPLICATION","VALIDATION")
+## [20261031] Mode epidemie : filovirus de l'epidemie active -> Cellule Ebola sans condition de priorite
+## (hebdo si maladie fiable High/Medium ; immediat si maladie dans le titre et etude APPLICATION/VALIDATION)
+is_ob <- x$disease_primary %in% OUTBREAK_DISEASES
+if (any(is_ob)) {
+  ebola_ok  <- ebola_ok  | (is_ob & is_ebola & x$disease_confidence %in% c("High","Medium"))
+  ebola_imm <- ebola_imm | (is_ob & is_ebola & x$disease_confidence == "High" & ev_ok)
+  cat(sprintf("Mode epidemie : %d article(s) eligible(s) Cellule Ebola, dont %d immediat(s)\n", sum(base_ok & ebola_ok), sum(base_ok & ebola_imm)))
+}
 rules <- list(
   SDI = function(d) {
     imm <- (((pl == "High") & ((is_prio & x$disease_confidence == "High") | x$africa_relevance_level == "High")) & ev_ok) | ebola_imm
-    wk  <- pl %in% c("High","Moderate")
+    wk  <- pl %in% c("High","Moderate") | (is_ob & dis_ok)   # [20261031] epidemie active -> digest SDI
     ifelse(imm, "immediate", ifelse(wk, "weekly", NA))
   },
   CELLULE_EBOLA = function(d) ifelse(ebola_imm, "immediate", ifelse(ebola_ok, "weekly",
@@ -199,6 +219,11 @@ for (i in seq_len(nrow(rec))) {
     dash <- sprintf("<div style='margin:14px 0;padding:8px 10px;background:#f4f4f4'><b>%s :</b> <a href='%s'>%s</a><br/><span style='font-size:12px'>%s</span></div>",
       tx("dashboard"), DASHBOARD_URL, DASHBOARD_URL, tx("dash_hint"))
     items <- paste0(items, "\n", dash)
+    if (nrow(OB) && any(shown$disease_primary %in% OUTBREAK_DISEASES)) {   # [20261031] bandeau epidemie
+      lab <- if (lang == "FR") OB$label_fr else OB$label_en
+      items <- paste0("<div style='margin:8px 0;padding:6px 10px;background:#fde8e8;border-left:4px solid #b00020'><b>",
+                      esc(tx("outbreak_banner")), "</b> ", esc(paste(lab, collapse = "; ")), "</div>\n", items)
+    }
     note <- T$Note; body <- T$Body; subj <- T$Subject
     period <- if (lang == "FR") paste0(format(ref_date - WINDOW_DAYS[[tr]], "%d/%m/%Y"), " - ", format(ref_date, "%d/%m/%Y")) else paste0(format(ref_date - WINDOW_DAYS[[tr]], "%Y-%m-%d"), " – ", format(ref_date, "%Y-%m-%d"))
     theme <- sub("^PARTENAIRE_", "", g)
@@ -231,7 +256,7 @@ if (length(ELIG)) write.csv(do.call(rbind, ELIG), file.path(out_dir, "eligible_i
 S <- if (length(summ)) do.call(rbind, summ) else data.frame()
 write.csv(S, file.path(out_dir, "resume_routage.csv"), row.names = FALSE, fileEncoding = "UTF-8")
 if (length(log_new)) {
-  L <- do.call(rbind, log_new); lf <- p("data/outputs/ai/alerting/alert_log.csv")
+  L <- do.call(rbind, log_new); lf <- LOGF
   if (file.exists(lf)) { old <- rd(lf); for (cn in setdiff(names(L), names(old))) old[[cn]] <- NA; for (cn in setdiff(names(old), names(L))) L[[cn]] <- NA; L <- rbind(old[names(L)], L) }
   write.csv(L, lf, row.names = FALSE, fileEncoding = "UTF-8")
 }

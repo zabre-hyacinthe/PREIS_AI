@@ -56,6 +56,9 @@ jobs:
             [ "$(date -u +%u)" = "1" ] && T="$T,weekly"
             [ "$(date -u +%d)" = "01" ] && T="$T,monthly"
           fi
+          # [20261031] Phase de test (variable PREIS_TEST_TAG non vide) : journal anti-doublons separe,
+          # pour que les envois de test n'empechent pas les futurs envois aux vrais destinataires.
+          if [ -n "${{ vars.PREIS_TEST_TAG }}" ]; then echo "PREIS_ALERT_LOG=data/outputs/ai/alerting/alert_log_TEST.csv" >> "$GITHUB_ENV"; echo "Phase de TEST : journal alert_log_TEST.csv"; fi
           echo "dry=$DRY" >> "$GITHUB_OUTPUT"
           echo "tiers=$T" >> "$GITHUB_OUTPUT"
           echo "Mode simulation: $DRY | paliers: $T"
@@ -128,5 +131,6 @@ jobs:
           git config user.name "preis-ai-bot"
           git config user.email "actions@users.noreply.github.com"
           git add -f data/outputs/ai/alerting/alert_log.csv
+          [ -f data/outputs/ai/alerting/alert_log_TEST.csv ] && git add -f data/outputs/ai/alerting/alert_log_TEST.csv || true
           git diff --cached --quiet || git commit -m "alert_log update $(date -u +%F)"
           git pull --rebase origin "${GITHUB_REF_NAME}" && git push origin "HEAD:${GITHUB_REF_NAME}"

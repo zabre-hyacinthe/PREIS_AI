@@ -36,7 +36,7 @@ if (!length(dirs) || !file.exists(file.path(dirs[1], "manifest.csv"))) {
     if (anyDuplicated(ids)) add("QA09", "CRITICAL", paste0(tag, " : article en double dans le meme message"))
   }
   ## doublons avec le journal des envois reels
-  lf <- file.path(base, "alert_log.csv")
+  lf <- { .lp <- Sys.getenv("PREIS_ALERT_LOG", ""); if (nzchar(.lp)) { if (grepl("^(/|[A-Za-z]:[/\\\\])", .lp)) .lp else file.path(root, .lp) } else file.path(base, "alert_log.csv") }   # [20261031] PREIS_ALERT_LOG
   if (file.exists(lf)) { L <- rd(lf); L <- L[L$status %in% "sent", , drop = FALSE]
     if (nrow(L)) { k_sent <- paste(L$record_id, L$group)
       for (i in seq_len(nrow(M))) { ids <- strsplit(M$record_ids[i], ";")[[1]]

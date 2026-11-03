@@ -17,7 +17,7 @@ todo <- M[M$will_send %in% c(TRUE, "TRUE"), , drop = FALSE]
 if (!LIVE || !nrow(todo)) { print(M[, c("group_key","tier","lang","n_items","will_send")]); quit(save = "no") }
 if (nrow(todo) > MAXN) stop("Plafond de securite depasse : ", nrow(todo), " messages > ", MAXN)
 source(file.path(root, "R/AI/60_email.R"))
-logf <- file.path(base, "alert_log.csv"); newlog <- list(); nok <- 0
+logf <- { .lp <- Sys.getenv("PREIS_ALERT_LOG", ""); if (nzchar(.lp)) { if (grepl("^(/|[A-Za-z]:[/\\\\])", .lp)) .lp else file.path(root, .lp) } else file.path(base, "alert_log.csv") }; newlog <- list(); nok <- 0   # [20261031] PREIS_ALERT_LOG
 for (i in seq_len(nrow(todo))) {
   r <- todo[i, ]
   html <- paste(readLines(file.path(d, r$file), warn = FALSE, encoding = "UTF-8"), collapse = "\n")
