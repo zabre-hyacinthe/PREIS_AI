@@ -1,6 +1,26 @@
 # 06b_deploy_retry.R - redeploy du dashboard avec nouvelles tentatives et diagnostic (20261010)
 # Ne modifie pas 06_deploy_posit_connect.R. Suppose que le dossier deploy/ est deja prepare par 06.
 suppressPackageStartupMessages(library(rsconnect))
+# [20261104] GitHub Actions : rsconnect peut laisser l'URL du depot vide, et shinyapps.io echoue alors
+# avec "Unsupported url scheme: CRAN/src/contrib/...". On impose ici l'URL de CRAN. Sans effet sur le PC.
+if (identical(Sys.getenv("GITHUB_ACTIONS"), "true")) local({
+  depot_cran <- "https://cloud.r-project.org"
+  origine <- get("computePackageDependencies", envir = asNamespace("rsconnect"))
+  corrigee <- function(...) {
+    deps <- origine(...)
+    if (nrow(deps) == 0) return(deps)
+    avant <- paste(deps$Source, deps$Repository, sep = " | ")
+    cat("\n--- Sources des paquets avant correction ---\n"); print(table(avant, useNA = "ifany"))
+    vcs <- tolower(deps$Source) %in% c("github", "gitlab", "bitbucket")
+    a_fixer <- !is.na(deps$Source) & !vcs
+    deps$Source[a_fixer] <- "CRAN"
+    deps$Repository[a_fixer] <- depot_cran
+    cat("Paquets rattaches a", depot_cran, ":", sum(a_fixer), "sur", nrow(deps), "\n")
+    if (any(!a_fixer)) print(deps[!a_fixer, c("Package", "Version", "Source", "Repository")])
+    deps
+  }
+  utils::assignInNamespace("computePackageDependencies", corrigee, ns = "rsconnect")
+})
 DEPLOY_DIR <- "D:/PREIS_AI_CLEAN/deploy"
 ACCT <- "zrhyacinthepreis26"
 SRV  <- "shinyapps.io"
