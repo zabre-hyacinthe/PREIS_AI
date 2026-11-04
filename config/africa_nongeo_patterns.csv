@@ -1,0 +1,41 @@
+pattern,reason
+papua new guinea,non-geographic usage
+new guinea,non-geographic usage
+guinea pigs?,non-geographic usage
+guinea fowl,non-geographic usage
+guinea worm,non-geographic usage
+gulf of guinea,non-geographic usage
+sudan virus,non-geographic usage
+sudan ebolavirus,non-geographic usage
+sudan ebola virus,non-geographic usage
+sudan strain,non-geographic usage
+crimean[- ]congo,non-geographic usage
+congo red,non-geographic usage
+aspergillus niger,non-geographic usage
+niger[- ]congo,non-geographic usage
+niger river,non-geographic usage
+river niger,non-geographic usage
+african[- ]americans?,non-geographic usage
+african ancestr(?:y|ies),non-geographic usage
+african descent,non-geographic usage
+afro-?american,non-geographic usage
+african swine fever,non-geographic usage
+african green monkeys?,non-geographic usage
+african horse sickness,non-geographic usage
+zaire ebola(?:virus)?,"virus/organism name or multi-country basin, not a country"
+ebola[- ]zaire,"virus/organism name or multi-country basin, not a country"
+ebolavirus zaire,"virus/organism name or multi-country basin, not a country"
+zaire strain,"virus/organism name or multi-country basin, not a country"
+zaire virus,"virus/organism name or multi-country basin, not a country"
+orthoebolavirus zairense,"virus/organism name or multi-country basin, not a country"
+zaire-ebov,"virus/organism name or multi-country basin, not a country"
+zebov,"virus/organism name or multi-country basin, not a country"
+congo basin,"virus/organism name or multi-country basin, not a country"
+congo river,"virus/organism name or multi-country basin, not a country"
+river congo,"virus/organism name or multi-country basin, not a country"
+sudan and (?:marburg|zaire|ebola),virus/organism name
+(?:marburg|zaire|ebola)(?: virus)? (?:and|or) sudan,virus/organism name
+sudan species,virus/organism name
+sudan orthoebolavirus,virus/organism name
+orthoebolavirus sudanense,virus/organism name
+sudanense,virus/organism name

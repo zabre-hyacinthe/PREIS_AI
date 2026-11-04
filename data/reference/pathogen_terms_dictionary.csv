@@ -1,0 +1,34 @@
+pathogen,term
+Cholera,cholera
+Dengue,dengue
+Mpox,mpox
+Mpox,monkeypox
+Ebola,ebola
+Marburg,marburg
+Influenza,influenza
+Influenza,avian influenza
+Influenza,h5n1
+Influenza,h7n9
+COVID-19,covid
+COVID-19,sars-cov-2
+Tuberculosis,tuberculosis
+Tuberculosis,tb
+Malaria,malaria
+Measles,measles
+Polio,polio
+Lassa Fever,lassa
+Yellow Fever,yellow fever
+West Nile,west nile
+Leptospirosis,leptospirosis
+Avian Influenza,bird flu
+Meningitis,meningitis
+Plague,plague
+Rabies,rabies
+Rift Valley Fever,rift valley fever
+Zika,zika
+Chikungunya,chikungunya
+Pathogen-unspecified,infectious disease
+Pathogen-unspecified,pathogen
+Pathogen-unspecified,outbreak
+Pathogen-unspecified,epidemic
+Pathogen-unspecified,pandemic

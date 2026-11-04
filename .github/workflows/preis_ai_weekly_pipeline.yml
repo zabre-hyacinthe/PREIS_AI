@@ -1,0 +1,126 @@
+name: PREIS AI - Weekly pipeline (cloud)
+
+# Lundi 03:00 UTC (06:00 Nairobi). Lancement manuel : publish=false = test sans publication ni deploiement. Aucun e-mail n'est envoye par ce workflow.
+on:
+  schedule:
+    - cron: "0 3 * * 1"
+  workflow_dispatch:
+    inputs:
+      publish:
+        description: "Publier les candidats et redeployer le tableau de bord"
+        default: "false"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: preis-ai-pipeline
+  cancel-in-progress: false
+
+jobs:
+  pipeline:
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    env:
+      LC_ALL: C.UTF-8
+      PREIS_AI_ROOT: ${{ github.workspace }}
+      PREIS_ROOT: ${{ github.workspace }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: r-lib/actions/setup-r@v2
+        with:
+          use-public-rspm: true
+
+      - name: Bibliotheques systeme
+        run: |
+          sudo apt-get update -y
+          sudo apt-get install -y libcurl4-openssl-dev libssl-dev libxml2-dev libgdal-dev libudunits2-dev libproj-dev libgeos-dev libfontconfig1-dev
+
+      - uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          packages: |
+            any::dplyr
+            any::httr
+            any::httr2
+            any::jsonlite
+            any::lubridate
+            any::purrr
+            any::readr
+            any::stringi
+            any::stringr
+            any::tibble
+            any::tidyr
+            any::xml2
+            any::shiny
+            any::shinydashboard
+            any::ggplot2
+            any::DT
+            any::leaflet
+            any::sf
+            any::scales
+            any::htmltools
+            any::rsconnect
+          cache: always
+
+      - name: Adapter les chemins Windows (copie de travail seulement)
+        run: |
+          W="$GITHUB_WORKSPACE"
+          find R/AI -name '*.R' -print0 | xargs -0 sed -i "s#D:/PREIS_AI_CLEAN#$W#g; s#D:/PREIS_AI#$W#g"
+          sed -i "s#^DEPLOY_DIR <- .*#DEPLOY_DIR <- \"$W/deploy\"#; s#^ROOT <- .*#ROOT <- \"$W\"#" R/06b_deploy_retry.R
+          mkdir -p logs deploy data/alerting
+
+      - name: Collecte Europe PMC
+        run: Rscript --vanilla R/AI/01_fetch_articles_ai_v10.R
+
+      - name: Pipeline complet
+        run: Rscript --vanilla R/AI/00_run_pipeline_fixed.R
+
+      - name: Controle du tracker
+        run: |
+          test -s data/enriched/ai/ai_tracker_final.csv
+          find data/enriched/ai/ai_tracker_final.csv -mmin -170 | grep -q . || { echo "Tracker non regenere"; exit 1; }
+          wc -l data/enriched/ai/ai_tracker_final.csv
+          cat data/outputs/ai/qc_invariants.csv
+
+      - name: Conserver les controles qualite (artefact 90 jours, sans le tracker)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: preis-ai-qc-${{ github.run_number }}
+          retention-days: 90
+          if-no-files-found: warn
+          path: |
+            data/outputs/ai/*.csv
+
+      - name: Exporter les candidats d'alerte
+        if: ${{ github.event_name == 'schedule' || github.event.inputs.publish == 'true' }}
+        run: Rscript --vanilla R/AI/66_export_alert_candidates.R
+
+      - name: Redeployer le tableau de bord
+        if: ${{ github.event_name == 'schedule' || github.event.inputs.publish == 'true' }}
+        env:
+          SHINYAPPS_TOKEN: ${{ secrets.SHINYAPPS_TOKEN }}
+          SHINYAPPS_SECRET: ${{ secrets.SHINYAPPS_SECRET }}
+        run: |
+          Rscript -e 'rsconnect::setAccountInfo(name="zrhyacinthepreis26", token=Sys.getenv("SHINYAPPS_TOKEN"), secret=Sys.getenv("SHINYAPPS_SECRET"))'
+          mkdir -p deploy/rsconnect/shinyapps.io/zrhyacinthepreis26
+          cp deploy_config/PREIS_AI_Dashboard.dcf deploy/rsconnect/shinyapps.io/zrhyacinthepreis26/
+          Rscript R/06b_deploy_retry.R | tee deploy.log
+          grep -q DEPLOY_OK deploy.log
+
+      - name: Retirer les adresses e-mail des donnees brutes (depot public)
+        run: |
+          find data/raw/ai -name '*.csv' -print0 | xargs -0 sed -i -E 's/[A-Za-z0-9._%+-]+@[A-Za-z0-9-]+(\.[A-Za-z0-9-]+)*\.[A-Za-z]{2,}//g'
+          if grep -rlE '[A-Za-z0-9._%+-]+@[A-Za-z0-9-]+\.[A-Za-z]{2,}' data/raw/ai data/alerting; then echo "Adresse restante : arret"; exit 1; fi
+
+      - name: Sauvegarder l'etat de collecte et les candidats
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout -- R/
+          git add data/raw/ai/
+          if [ "${{ github.event_name }}" = "schedule" ] || [ "${{ github.event.inputs.publish }}" = "true" ]; then git add data/alerting/; fi
+          git diff --cached --quiet || git commit -m "Pipeline hebdomadaire : collecte et candidats [skip ci]"
+          git pull --rebase --autostash origin main
+          git push origin main

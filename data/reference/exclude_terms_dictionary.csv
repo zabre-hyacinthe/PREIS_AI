@@ -1,0 +1,35 @@
+reason_exclusion,term
+non_health_topic,financial
+non_health_topic,energy prices
+non_health_topic,forest fire
+non_health_topic,wildfire
+non_health_topic,landslide
+non_health_topic,student performance
+non_health_topic,teaching early warning
+non_health_topic,coal mine
+non_health_topic,tourist flows
+non_health_topic,soil moisture
+non_health_topic,air pollution
+non_health_topic,smart education
+non_health_topic,financial networks
+non_health_topic,agricultural drought
+non_health_topic,limestone water hazards
+non_health_topic,crop pest
+clinical_only,icu
+clinical_only,critical care
+clinical_only,hemodynamic instability
+clinical_only,code blue
+clinical_only,fall risk
+clinical_only,venous thromboembolism
+clinical_only,episiotomy
+clinical_only,ophthalmology
+clinical_only,retinal imaging
+clinical_only,anesthesia
+clinical_only,intraoperative hypotension
+clinical_only,liver injury
+clinical_only,atrial septal defects
+clinical_only,breast cancer
+clinical_only,juvenile idiopathic arthritis
+clinical_only,nephrology
+clinical_only,gynecological
+clinical_only,urinary tract infection

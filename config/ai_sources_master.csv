@@ -1,0 +1,11 @@
+source_name,source_group,included_in_proposal,enabled_now,access_mode,priority,notes
+EuropePMC,Scientific database,TRUE,TRUE,API,1,Primary AI literature source
+PubMed,Scientific database,TRUE,TRUE,API,1,Primary biomedical source
+Scopus,Scientific database,TRUE,FALSE,Subscription/API,2,Enable if access available
+Web of Science,Scientific database,TRUE,FALSE,Subscription/API,2,Enable if access available
+IEEE Xplore,Scientific database,TRUE,FALSE,Subscription/API,2,Enable if access available
+OpenAlex,Scientific database,FALSE,FALSE,API,3,Future optional extension
+WHO,Institutional,TRUE,FALSE,Targeted web,2,Method reports and PHI frameworks
+Africa CDC,Institutional,TRUE,FALSE,Targeted web,1,Strategic institutional outputs
+ECDC,Institutional,TRUE,FALSE,Targeted web,2,Methodological references
+Google Scholar,Scientific database,FALSE,FALSE,Manual,3,Optional manual check

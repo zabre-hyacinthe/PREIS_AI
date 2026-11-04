@@ -68,8 +68,8 @@ jobs:
           test -f data/alerting/alert_candidates.csv || { echo "alert_candidates.csv absent"; exit 1; }
           AGE=$(( ( $(date +%s) - $(git log -1 --format=%ct -- data/alerting/alert_candidates.csv) ) / 86400 ))
           echo "Age des candidats : $AGE jour(s)"
-          if [ "$AGE" -gt 4 ] && [ "${{ steps.mode.outputs.dry }}" = "false" ]; then
-            echo "::error::Candidats trop anciens (>4 j) : envoi reel bloque. Relancer le pipeline sur le PC."; exit 1
+          if [ "$AGE" -gt 8 ] && [ "${{ steps.mode.outputs.dry }}" = "false" ]; then
+            echo "::error::Candidats trop anciens (>8 j, pipeline hebdomadaire) : envoi reel bloque. Relancer le pipeline sur le PC."; exit 1
           fi
 
       - uses: r-lib/actions/setup-r@v2

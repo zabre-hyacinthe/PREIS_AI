@@ -1,0 +1,309 @@
+iso3,country,rcc,alias,alias_type
+DZA,Algeria,Northern,algeria,literal
+DZA,Algeria,Northern,algerie,literal
+DZA,Algeria,Northern,algerian,literal
+DZA,Algeria,Northern,algerians,literal
+DZA,Algeria,Northern,algiers,literal
+DZA,Algeria,Northern,oran,literal
+AGO,Angola,Southern,angola,literal
+AGO,Angola,Southern,angolan,literal
+AGO,Angola,Southern,angolans,literal
+AGO,Angola,Southern,luanda,literal
+BEN,Benin,Western,benin,literal
+BEN,Benin,Western,beninese,literal
+BEN,Benin,Western,cotonou,literal
+BEN,Benin,Western,porto-novo,literal
+BWA,Botswana,Southern,botswana,literal
+BWA,Botswana,Southern,motswana,literal
+BWA,Botswana,Southern,batswana,literal
+BWA,Botswana,Southern,gaborone,literal
+BFA,Burkina Faso,Western,burkina faso,literal
+BFA,Burkina Faso,Western,burkina,literal
+BFA,Burkina Faso,Western,burkinabe,literal
+BFA,Burkina Faso,Western,ouagadougou,literal
+BFA,Burkina Faso,Western,bobo-dioulasso,literal
+BDI,Burundi,Central,burundi,literal
+BDI,Burundi,Central,burundian,literal
+BDI,Burundi,Central,bujumbura,literal
+BDI,Burundi,Central,gitega,literal
+CPV,Cabo Verde,Western,cabo verde,literal
+CPV,Cabo Verde,Western,cape verde,literal
+CPV,Cabo Verde,Western,cape verdean,literal
+CPV,Cabo Verde,Western,cabo-verdean,literal
+CMR,Cameroon,Central,cameroon,literal
+CMR,Cameroon,Central,cameroun,literal
+CMR,Cameroon,Central,cameroonian,literal
+CMR,Cameroon,Central,camerounais,literal
+CMR,Cameroon,Central,yaounde,literal
+CMR,Cameroon,Central,douala,literal
+CMR,Cameroon,Central,bamenda,literal
+CMR,Cameroon,Central,garoua,literal
+CAF,Central African Republic,Central,central african republic,literal
+CAF,Central African Republic,Central,republique centrafricaine,literal
+CAF,Central African Republic,Central,centrafrique,literal
+CAF,Central African Republic,Central,centrafrican,literal
+CAF,Central African Republic,Central,bangui,literal
+TCD,Chad,Central,republic of chad,literal
+TCD,Chad,Central,lake chad,literal
+TCD,Chad,Central,chadian,literal
+TCD,Chad,Central,tchad,literal
+TCD,Chad,Central,ndjamena,literal
+TCD,Chad,Central,n'djamena,literal
+COM,Comoros,Eastern,comoros,literal
+COM,Comoros,Eastern,comorian,literal
+COM,Comoros,Eastern,comores,literal
+COM,Comoros,Eastern,moroni,literal
+COM,Comoros,Eastern,grande comore,literal
+COD,Democratic Republic of the Congo,Central,democratic republic of the congo,literal
+COD,Democratic Republic of the Congo,Central,democratic republic of congo,literal
+COD,Democratic Republic of the Congo,Central,dr congo,literal
+COD,Democratic Republic of the Congo,Central,dr-congo,literal
+COD,Democratic Republic of the Congo,Central,d.r. congo,literal
+COD,Democratic Republic of the Congo,Central,d.r.c.,literal
+COD,Democratic Republic of the Congo,Central,drc,literal
+COD,Democratic Republic of the Congo,Central,rdc,literal
+COD,Democratic Republic of the Congo,Central,congo-kinshasa,literal
+COD,Democratic Republic of the Congo,Central,congo kinshasa,literal
+COD,Democratic Republic of the Congo,Central,congo (drc),literal
+COD,Democratic Republic of the Congo,Central,congo (dr),literal
+COD,Democratic Republic of the Congo,Central,republique democratique du congo,literal
+COD,Democratic Republic of the Congo,Central,zaire,literal
+COD,Democratic Republic of the Congo,Central,kinshasa,literal
+COD,Democratic Republic of the Congo,Central,goma,literal
+COD,Democratic Republic of the Congo,Central,bunia,literal
+COD,Democratic Republic of the Congo,Central,kisangani,literal
+COD,Democratic Republic of the Congo,Central,lubumbashi,literal
+COD,Democratic Republic of the Congo,Central,mbuji-mayi,literal
+COD,Democratic Republic of the Congo,Central,bukavu,literal
+COD,Democratic Republic of the Congo,Central,kikwit,literal
+COD,Democratic Republic of the Congo,Central,yambuku,literal
+COD,Democratic Republic of the Congo,Central,mbandaka,literal
+COD,Democratic Republic of the Congo,Central,boende,literal
+COD,Democratic Republic of the Congo,Central,luebo,literal
+COD,Democratic Republic of the Congo,Central,ituri,literal
+COD,Democratic Republic of the Congo,Central,north kivu,literal
+COD,Democratic Republic of the Congo,Central,south kivu,literal
+COD,Democratic Republic of the Congo,Central,kivu,literal
+COD,Democratic Republic of the Congo,Central,kasai,literal
+COD,Democratic Republic of the Congo,Central,tshopo,literal
+COD,Democratic Republic of the Congo,Central,eastern congo,literal
+COD,Democratic Republic of the Congo,Central,congolese,literal
+COD,Democratic Republic of the Congo,Central,congo,literal
+COG,Republic of the Congo,Central,republic of the congo,literal
+COG,Republic of the Congo,Central,republic of congo,literal
+COG,Republic of the Congo,Central,congo republic,literal
+COG,Republic of the Congo,Central,congo-brazzaville,literal
+COG,Republic of the Congo,Central,congo brazzaville,literal
+COG,Republic of the Congo,Central,congo (republic),literal
+COG,Republic of the Congo,Central,brazzaville,literal
+COG,Republic of the Congo,Central,pointe-noire,literal
+CIV,Cote d'Ivoire,Western,cote d'ivoire,literal
+CIV,Cote d'Ivoire,Western,cote d ivoire,literal
+CIV,Cote d'Ivoire,Western,cote divoire,literal
+CIV,Cote d'Ivoire,Western,ivory coast,literal
+CIV,Cote d'Ivoire,Western,ivoirian,literal
+CIV,Cote d'Ivoire,Western,ivorian,literal
+CIV,Cote d'Ivoire,Western,abidjan,literal
+CIV,Cote d'Ivoire,Western,yamoussoukro,literal
+DJI,Djibouti,Eastern,djibouti,literal
+DJI,Djibouti,Eastern,djiboutian,literal
+EGY,Egypt,Northern,egypt,literal
+EGY,Egypt,Northern,egyptian,literal
+EGY,Egypt,Northern,egyptians,literal
+EGY,Egypt,Northern,egypte,literal
+EGY,Egypt,Northern,cairo,literal
+EGY,Egypt,Northern,giza,literal
+GNQ,Equatorial Guinea,Central,equatorial guinea,literal
+GNQ,Equatorial Guinea,Central,guinee equatoriale,literal
+GNQ,Equatorial Guinea,Central,equatoguinean,literal
+GNQ,Equatorial Guinea,Central,malabo,literal
+ERI,Eritrea,Eastern,eritrea,literal
+ERI,Eritrea,Eastern,eritrean,literal
+ERI,Eritrea,Eastern,asmara,literal
+SWZ,Eswatini,Southern,eswatini,literal
+SWZ,Eswatini,Southern,swaziland,literal
+SWZ,Eswatini,Southern,swazi,literal
+SWZ,Eswatini,Southern,mbabane,literal
+ETH,Ethiopia,Eastern,ethiopia,literal
+ETH,Ethiopia,Eastern,ethiopian,literal
+ETH,Ethiopia,Eastern,ethiopians,literal
+ETH,Ethiopia,Eastern,ethiopie,literal
+ETH,Ethiopia,Eastern,addis ababa,literal
+ETH,Ethiopia,Eastern,oromia,literal
+ETH,Ethiopia,Eastern,amhara,literal
+ETH,Ethiopia,Eastern,tigray,literal
+GAB,Gabon,Central,gabon,literal
+GAB,Gabon,Central,gabonese,literal
+GAB,Gabon,Central,libreville,literal
+GMB,Gambia,Western,gambia,literal
+GMB,Gambia,Western,the gambia,literal
+GMB,Gambia,Western,gambian,literal
+GMB,Gambia,Western,banjul,literal
+GHA,Ghana,Western,ghana,literal
+GHA,Ghana,Western,ghanaian,literal
+GHA,Ghana,Western,ghanaians,literal
+GHA,Ghana,Western,accra,literal
+GHA,Ghana,Western,kumasi,literal
+GNB,Guinea-Bissau,Western,guinea-bissau,literal
+GNB,Guinea-Bissau,Western,guinea bissau,literal
+GNB,Guinea-Bissau,Western,guine-bissau,literal
+GNB,Guinea-Bissau,Western,bissau-guinean,literal
+GNB,Guinea-Bissau,Western,bissau,literal
+GIN,Guinea,Western,guinea,literal
+GIN,Guinea,Western,guinee,literal
+GIN,Guinea,Western,guinea-conakry,literal
+GIN,Guinea,Western,guinean,literal
+GIN,Guinea,Western,conakry,literal
+GIN,Guinea,Western,nzerekore,literal
+KEN,Kenya,Eastern,kenya,literal
+KEN,Kenya,Eastern,kenyan,literal
+KEN,Kenya,Eastern,kenyans,literal
+KEN,Kenya,Eastern,nairobi,literal
+KEN,Kenya,Eastern,mombasa,literal
+KEN,Kenya,Eastern,kisumu,literal
+KEN,Kenya,Eastern,kilifi,literal
+LSO,Lesotho,Southern,lesotho,literal
+LSO,Lesotho,Southern,basotho,literal
+LSO,Lesotho,Southern,mosotho,literal
+LSO,Lesotho,Southern,maseru,literal
+LBR,Liberia,Western,liberia,literal
+LBR,Liberia,Western,liberian,literal
+LBR,Liberia,Western,liberians,literal
+LBR,Liberia,Western,monrovia,literal
+LBY,Libya,Northern,libya,literal
+LBY,Libya,Northern,libyan,literal
+LBY,Libya,Northern,libye,literal
+LBY,Libya,Northern,benghazi,literal
+MDG,Madagascar,Eastern,madagascar,literal
+MDG,Madagascar,Eastern,malagasy,literal
+MDG,Madagascar,Eastern,antananarivo,literal
+MWI,Malawi,Southern,malawi,literal
+MWI,Malawi,Southern,malawian,literal
+MWI,Malawi,Southern,malawians,literal
+MWI,Malawi,Southern,lilongwe,literal
+MWI,Malawi,Southern,blantyre,literal
+MLI,Mali,Western,mali,literal
+MLI,Mali,Western,malian,literal
+MLI,Mali,Western,maliens,literal
+MLI,Mali,Western,bamako,literal
+MRT,Mauritania,Northern,mauritania,literal
+MRT,Mauritania,Northern,mauritanian,literal
+MRT,Mauritania,Northern,mauritanie,literal
+MRT,Mauritania,Northern,nouakchott,literal
+MUS,Mauritius,Eastern,mauritius,literal
+MUS,Mauritius,Eastern,mauritian,literal
+MUS,Mauritius,Eastern,port louis,literal
+MAR,Morocco,Northern,morocco,literal
+MAR,Morocco,Northern,moroccan,literal
+MAR,Morocco,Northern,moroccans,literal
+MAR,Morocco,Northern,maroc,literal
+MAR,Morocco,Northern,rabat,literal
+MAR,Morocco,Northern,casablanca,literal
+MAR,Morocco,Northern,marrakech,literal
+MOZ,Mozambique,Southern,mozambique,literal
+MOZ,Mozambique,Southern,mozambican,literal
+MOZ,Mozambique,Southern,mocambique,literal
+MOZ,Mozambique,Southern,maputo,literal
+NAM,Namibia,Southern,namibia,literal
+NAM,Namibia,Southern,namibian,literal
+NAM,Namibia,Southern,windhoek,literal
+NER,Niger,Western,niger,literal
+NER,Niger,Western,nigerien,literal
+NER,Niger,Western,niamey,literal
+NGA,Nigeria,Western,nigeria,literal
+NGA,Nigeria,Western,nigerian,literal
+NGA,Nigeria,Western,nigerians,literal
+NGA,Nigeria,Western,lagos,literal
+NGA,Nigeria,Western,abuja,literal
+NGA,Nigeria,Western,kano,literal
+NGA,Nigeria,Western,ibadan,literal
+NGA,Nigeria,Western,port harcourt,literal
+NGA,Nigeria,Western,niger delta,literal
+NGA,Nigeria,Western,niger state,literal
+NGA,Nigeria,Western,benin city,literal
+NGA,Nigeria,Western,edo state,literal
+RWA,Rwanda,Eastern,rwanda,literal
+RWA,Rwanda,Eastern,rwandan,literal
+RWA,Rwanda,Eastern,rwandans,literal
+RWA,Rwanda,Eastern,rwandese,literal
+RWA,Rwanda,Eastern,kigali,literal
+STP,Sao Tome and Principe,Central,sao tome,literal
+STP,Sao Tome and Principe,Central,sao tome and principe,literal
+STP,Sao Tome and Principe,Central,santomean,literal
+SEN,Senegal,Western,senegal,literal
+SEN,Senegal,Western,senegalese,literal
+SEN,Senegal,Western,dakar,literal
+SEN,Senegal,Western,touba,literal
+SYC,Seychelles,Eastern,seychelles,literal
+SYC,Seychelles,Eastern,seychellois,literal
+SLE,Sierra Leone,Western,sierra leone,literal
+SLE,Sierra Leone,Western,sierra leonean,literal
+SLE,Sierra Leone,Western,sierra leoneans,literal
+SLE,Sierra Leone,Western,freetown,literal
+SLE,Sierra Leone,Western,kenema,literal
+SLE,Sierra Leone,Western,kailahun,literal
+SOM,Somalia,Eastern,somalia,literal
+SOM,Somalia,Eastern,somali,literal
+SOM,Somalia,Eastern,somalian,literal
+SOM,Somalia,Eastern,mogadishu,literal
+SOM,Somalia,Eastern,somaliland,literal
+ZAF,South Africa,Southern,south africa,literal
+ZAF,South Africa,Southern,south african,literal
+ZAF,South Africa,Southern,south africans,literal
+ZAF,South Africa,Southern,johannesburg,literal
+ZAF,South Africa,Southern,cape town,literal
+ZAF,South Africa,Southern,pretoria,literal
+ZAF,South Africa,Southern,durban,literal
+ZAF,South Africa,Southern,kwazulu-natal,literal
+ZAF,South Africa,Southern,gauteng,literal
+ZAF,South Africa,Southern,western cape,literal
+SSD,South Sudan,Eastern,south sudan,literal
+SSD,South Sudan,Eastern,south sudanese,literal
+SSD,South Sudan,Eastern,republic of south sudan,literal
+SSD,South Sudan,Eastern,juba,literal
+SDN,Sudan,Eastern,sudan,literal
+SDN,Sudan,Eastern,sudanese,literal
+SDN,Sudan,Eastern,khartoum,literal
+SDN,Sudan,Eastern,darfur,literal
+SDN,Sudan,Eastern,omdurman,literal
+TZA,Tanzania,Eastern,tanzania,literal
+TZA,Tanzania,Eastern,tanzanian,literal
+TZA,Tanzania,Eastern,tanzanians,literal
+TZA,Tanzania,Eastern,united republic of tanzania,literal
+TZA,Tanzania,Eastern,dar es salaam,literal
+TZA,Tanzania,Eastern,dodoma,literal
+TZA,Tanzania,Eastern,zanzibar,literal
+TZA,Tanzania,Eastern,arusha,literal
+TGO,Togo,Western,togo,literal
+TGO,Togo,Western,togolese,literal
+TGO,Togo,Western,lome,literal
+TUN,Tunisia,Northern,tunisia,literal
+TUN,Tunisia,Northern,tunisian,literal
+TUN,Tunisia,Northern,tunisians,literal
+TUN,Tunisia,Northern,tunisie,literal
+TUN,Tunisia,Northern,tunis,literal
+UGA,Uganda,Eastern,uganda,literal
+UGA,Uganda,Eastern,ugandan,literal
+UGA,Uganda,Eastern,ugandans,literal
+UGA,Uganda,Eastern,kampala,literal
+UGA,Uganda,Eastern,gulu,literal
+UGA,Uganda,Eastern,mubende,literal
+UGA,Uganda,Eastern,entebbe,literal
+UGA,Uganda,Eastern,kasese,literal
+UGA,Uganda,Eastern,wakiso,literal
+UGA,Uganda,Eastern,mbarara,literal
+UGA,Uganda,Eastern,jinja,literal
+UGA,Uganda,Eastern,masaka,literal
+ZMB,Zambia,Southern,zambia,literal
+ZMB,Zambia,Southern,zambian,literal
+ZMB,Zambia,Southern,zambians,literal
+ZMB,Zambia,Southern,lusaka,literal
+ZWE,Zimbabwe,Southern,zimbabwe,literal
+ZWE,Zimbabwe,Southern,zimbabwean,literal
+ZWE,Zimbabwe,Southern,zimbabweans,literal
+ZWE,Zimbabwe,Southern,harare,literal
+ZWE,Zimbabwe,Southern,bulawayo,literal
+ESH,Western Sahara,Northern,western sahara,literal
+ESH,Western Sahara,Northern,sahrawi,literal
+ESH,Western Sahara,Northern,sahrawi arab democratic republic,literal
+TCD,Chad,Central,\b(?:in|of|from|to|across|within|throughout|between|northern|southern|eastern|western|and)\s+chad\b,regex

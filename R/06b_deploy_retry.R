@@ -1,0 +1,44 @@
+# 06b_deploy_retry.R - redeploy du dashboard avec nouvelles tentatives et diagnostic (20261010)
+# Ne modifie pas 06_deploy_posit_connect.R. Suppose que le dossier deploy/ est deja prepare par 06.
+suppressPackageStartupMessages(library(rsconnect))
+DEPLOY_DIR <- "D:/PREIS_AI_CLEAN/deploy"
+ACCT <- "zrhyacinthepreis26"
+SRV  <- "shinyapps.io"
+ROOT <- "D:/PREIS_AI_CLEAN"
+# Preparation du dossier deploy (meme logique que 06): app + donnees a jour
+app <- readLines(file.path(ROOT, "dashboard", "app_ai_v3.R"), warn = FALSE)
+app <- gsub('project_dir <- "D:/PREIS_AI_CLEAN"', 'project_dir <- getwd()  # Posit Connect: chemin relatif', app, fixed = TRUE)
+writeLines(app, file.path(DEPLOY_DIR, "app.R"))
+for (f in c("dashboard/data/dashboard/alerts_ai.csv", "data/dashboard/ai_intelligence_dashboard_dataset.csv",
+            "maps/africa_countries_rcc.geojson", "maps/country_coords.csv")) {   # [20261031] config/alert_recipients_ai.csv (adresses) retire du paquet public : non utilise par app.R
+  dir.create(dirname(file.path(DEPLOY_DIR, f)), recursive = TRUE, showWarnings = FALSE)
+  cat("copie", f, file.copy(file.path(ROOT, f), file.path(DEPLOY_DIR, f), overwrite = TRUE), "\n")
+}
+if (file.exists(file.path(DEPLOY_DIR, "config/alert_recipients_ai.csv"))) cat("ATTENTION : ancienne copie deploy/config/alert_recipients_ai.csv presente (a retirer du dossier deploy)\n")
+cat("Dossier:", DEPLOY_DIR, "\n")
+cat("app.R modifie:", format(file.mtime(file.path(DEPLOY_DIR, "app.R"))), "\n")
+cat("show_names present dans app.R:", any(grepl("show_names", readLines(file.path(DEPLOY_DIR, "app.R"), warn = FALSE))), "\n")
+ok <- FALSE
+for (i in 1:4) {
+  cat(sprintf("\n[tentative %d/4] %s\n", i, format(Sys.time())))
+  if (i >= 3) options(rsconnect.http = "curl")
+  res <- tryCatch({
+    rsconnect::deployApp(appDir = DEPLOY_DIR, appName = "PREIS_AI_Dashboard",
+      appTitle = "PREIS-AI Intelligence Observatory", account = ACCT, server = SRV,
+      forceUpdate = TRUE, launch.browser = FALSE)
+    TRUE
+  }, error = function(e) { cat("ERREUR:", conditionMessage(e), "\n"); FALSE })
+  if (isTRUE(res)) { ok <- TRUE; break }
+  if (i < 4) { cat("Nouvelle tentative dans 90 s...\n"); Sys.sleep(90) }
+}
+cat("\n--- Diagnostic serveur ---\n")
+tryCatch({
+  apps <- rsconnect::applications(account = ACCT, server = SRV)
+  a <- apps[apps$name == "PREIS_AI_Dashboard", ]
+  print(a[, intersect(c("name", "status", "url", "updated_time", "deployment"), names(a))])
+}, error = function(e) cat("applications():", conditionMessage(e), "\n"))
+tryCatch({
+  lg <- capture.output(rsconnect::showLogs(appDir = DEPLOY_DIR, account = ACCT, server = SRV, entries = 30, streaming = FALSE))
+  cat(tail(lg, 30), sep = "\n")
+}, error = function(e) cat("showLogs():", conditionMessage(e), "\n"))
+cat(if (ok) "\nDEPLOY_OK\n" else "\nDEPLOY_FAILED\n")

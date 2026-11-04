@@ -1,0 +1,46 @@
+disease_primary,disease_group,pathogen_class,keywords
+Mpox,Viral zoonotic disease,Virus,mpox; monkeypox
+Ebola,Viral hemorrhagic fever,Virus,ebola; ebolavirus; orthoebolavirus; ebov; bundibugyo; bdbv; sudan virus; sudv
+Marburg,Viral hemorrhagic fever,Virus,marburg virus; marburgvirus; marburg virus disease
+Lassa fever,Viral hemorrhagic fever,Virus,lassa; lassa fever
+Rift Valley fever,One Health zoonotic disease,Virus,rift valley fever; rvf
+Crimean-Congo hemorrhagic fever,Viral hemorrhagic fever,Virus,crimean-congo; cchf
+Cholera,Waterborne disease,Bacteria,cholera
+Typhoid fever,Food and waterborne disease,Bacteria,typhoid; typhoid fever
+Plague,Zoonotic bacterial disease,Bacteria,bubonic plague; pneumonic plague; yersinia pestis; plague outbreak
+Anthrax,Zoonotic bacterial disease,Bacteria,anthrax; bacillus anthracis
+Tuberculosis,Respiratory infectious disease,Bacteria,tuberculosis; tb
+Diphtheria,Vaccine-preventable disease,Bacteria,diphtheria
+Meningitis,Acute infectious syndrome,Bacteria,meningitis; meningococcal; neisseria meningitidis
+Malaria,Vector-borne disease,Parasite,malaria; plasmodium
+Leishmaniasis,Vector-borne disease,Parasite,leishmania; leishmaniasis
+Schistosomiasis,Neglected tropical disease,Parasite,schistosomiasis; schistosoma
+Dengue,Vector-borne disease,Virus,dengue
+Yellow fever,Vector-borne disease,Virus,yellow fever
+Zika,Vector-borne disease,Virus,zika
+Chikungunya,Vector-borne disease,Virus,chikungunya
+West Nile fever,Vector-borne disease,Virus,west nile
+Influenza,Respiratory viral disease,Virus,influenza; flu; h1n1; h3n2; h5n1; h7n9; avian influenza; bird flu
+COVID-19,Respiratory viral disease,Virus,covid; covid-19; covid19; sars-cov-2; sars-cov2; coronavirus; coronaviruses; long covid
+Measles,Vaccine-preventable disease,Virus,measles
+Polio,Vaccine-preventable disease,Virus,polio; poliovirus; poliomyelitis
+Rabies,Zoonotic viral disease,Virus,rabies
+HIV,Chronic infectious disease,Virus,hiv; acquired immunodeficiency; human immunodeficiency virus; aids incidence; aids epidemic; aids patients; aids cases; aids prevalence
+Hepatitis,Chronic viral disease,Virus,hepatitis; hepatitis a; hepatitis e; hepatitis b; hepatitis c
+Antimicrobial resistance,Cross-cutting threat,Cross-cutting,antimicrobial resistance; antibiotic resistance; multidrug resistan; multidrug-resistant; amr; antimicrobial stewardship
+Food poisoning,Foodborne event,Cross-cutting,food poisoning; foodborne outbreak; foodborne disease; toxic food
+Unknown disease,Undiagnosed event,Unknown,unknown disease; unknown illness; unknown outbreak; unknown cause
+MERS / other coronaviruses,Respiratory viral disease,Virus,mers-cov; mers coronavirus; middle east respiratory syndrome
+Nipah,Viral zoonotic disease,Virus,nipah
+Hantavirus disease,Viral zoonotic disease,Virus,hantavirus; hantaviruses
+Chagas disease,Neglected tropical disease,Parasite,chagas; trypanosoma cruzi
+Sleeping sickness,Neglected tropical disease,Parasite,sleeping sickness; human african trypanosomiasis; trypanosoma brucei
+Onchocerciasis / filariasis,Neglected tropical disease,Parasite,onchocerciasis; river blindness; lymphatic filariasis; filariasis
+Leprosy / Buruli ulcer,Neglected tropical disease,Bacteria,leprosy; buruli ulcer; mycobacterium ulcerans; mycobacterium leprae
+Trachoma,Neglected tropical disease,Bacteria,trachoma
+Pertussis,Vaccine-preventable disease,Bacteria,pertussis; whooping cough
+Rotavirus / diarrhoeal disease,Waterborne disease,Virus,rotavirus; diarrhoeal disease; diarrheal disease; diarrhoea outbreak
+Respiratory syncytial virus,Respiratory viral disease,Virus,respiratory syncytial virus; rsv
+Mumps / Rubella,Vaccine-preventable disease,Virus,mumps; rubella
+Brucellosis,Zoonotic bacterial disease,Bacteria,brucellosis; brucella
+Leptospirosis,Zoonotic bacterial disease,Bacteria,leptospirosis; leptospira

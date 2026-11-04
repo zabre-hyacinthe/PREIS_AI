@@ -1,0 +1,6 @@
+rule_id,description
+1,Purely clinical diagnosis without surveillance relevance
+2,Treatment or therapeutics only
+3,No methodological content
+4,No surveillance or epidemic intelligence relevance
+5,Non-health application

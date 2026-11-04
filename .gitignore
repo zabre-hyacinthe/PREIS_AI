@@ -1,0 +1,13 @@
+deploy/
+data/clean/
+data/enriched/
+data/outputs/ai/*
+!data/outputs/ai/alerting/
+data/dashboard/
+dashboard/data/
+logs/
+*.log
+.Renviron
+*.pem
+*.key
+*.bak*

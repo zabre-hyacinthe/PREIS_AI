@@ -1,0 +1,6 @@
+rule_id,description
+1,Contains at least one AI term
+2,Contains at least one surveillance or application term
+3,Has title
+4,Has abstract or summary text
+5,Publication year >= 2010

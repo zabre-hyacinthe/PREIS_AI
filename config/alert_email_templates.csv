@@ -1,0 +1,136 @@
+﻿Groupe,Objet FR,Corps FR,Subject EN,Body EN,Note jointe FR,Note jointe EN,Signature FR,Signature EN
+SDI,[PREIS AI] {n} publication(s) IA à examiner – SDI – {periode},"Chère équipe SDI,
+
+PREIS AI Tracker a détecté {n} publication(s) récente(s) sur l'IA appliquée à la surveillance et à la riposte, dont {n_high} de priorité élevée (voir détails ci-dessous). Les alertes sont classées par maladie ; les plus urgentes figurent en tête.
+
+{note}
+
+{items}
+
+Vous recevez ce message car le SDI reçoit l'ensemble des signaux éligibles ; dites-nous si vous souhaitez ajuster les seuils.
+
+{signature}",[PREIS AI] {n} AI publication(s) to review – SDI – {period},"Dear SDI team,
+
+PREIS AI Tracker detected {n} recent publication(s) on AI applied to surveillance and response, {n_high} of them high priority (details below). Items are grouped by disease with the most urgent first.
+
+{note}
+
+{items}
+
+You receive this message because SDI receives every eligible signal; tell us if you would like thresholds adjusted.
+
+{signature}","NOTE IMPORTANTE – Ce message est produit automatiquement par le système PREIS AI Tracker, qui a identifié les résultats ci-dessous dans la littérature scientifique récente. La classification (maladie, pays, méthode d'IA) est automatique et n'a pas été validée manuellement article par article : nous vous invitons à vérifier les sources avant tout usage opérationnel. Sur un échantillon test interne de 50 articles, la détection de l'IA concordait avec une relecture humaine dans 86 % des cas et la maladie dans 76 % des cas. Ces résultats sont des signaux, pas des recommandations validées ni des preuves de causalité.","IMPORTANT NOTE – This message is generated automatically by the PREIS AI Tracker, which identified the results below in the recent scientific literature. Classification (disease, country, AI method) is automatic and has not been manually validated article by article: please verify the sources before any operational use. On an internal test sample of 50 articles, AI detection agreed with a human reviewer in 86% of cases and disease in 76%. These are signals, not validated recommendations or evidence of causation.","Cordialement,
+
+Dr Raogo Hyacinthe ZABRÉ
+PREIS – Africa CDC","Best regards,
+
+Dr Raogo Hyacinthe ZABRÉ
+PREIS – Africa CDC"
+CELLULE_EBOLA,[PREIS AI – Ebola] {n} méthode(s) d'IA potentiellement utile(s) à la riposte,"Chers collègues de la riposte Ebola,
+
+PREIS AI Tracker a identifié {n} publication(s) sur des méthodes d'IA (prévision, cartographie du risque, surveillance, mobilité) directement liées à Ebola/filovirus ou transférables. Chaque fiche précise si l'étude porte sur Ebola ou une autre maladie, et la limite principale pour l'adaptation au contexte actuel (RDC/Ouganda).
+
+{note}
+
+{items}
+
+Ces méthodes ne doivent pas être appliquées sans validation et recalibrage sur les données de l'épidémie en cours ; l'équipe PREIS peut accompagner ce travail.
+
+{signature}",[PREIS AI – Ebola] {n} AI method(s) potentially useful for the response,"Dear Ebola response colleagues,
+
+PREIS AI Tracker identified {n} publication(s) on AI methods (forecasting, risk mapping, surveillance, mobility) directly about Ebola/filoviruses or transferable to them. Each entry states whether the study concerns Ebola or another disease and the main limitation for adapting it to the current context (DRC/Uganda).
+
+{note}
+
+{items}
+
+These methods must not be applied without validation and recalibration on current outbreak data; the PREIS team can support that work.
+
+{signature}","NOTE IMPORTANTE – Ce message est produit automatiquement par le système PREIS AI Tracker, qui a identifié les résultats ci-dessous dans la littérature scientifique récente. La classification (maladie, pays, méthode d'IA) est automatique et n'a pas été validée manuellement article par article : nous vous invitons à vérifier les sources avant tout usage opérationnel. Sur un échantillon test interne de 50 articles, la détection de l'IA concordait avec une relecture humaine dans 86 % des cas et la maladie dans 76 % des cas. Ces résultats sont des signaux, pas des recommandations validées ni des preuves de causalité.","IMPORTANT NOTE – This message is generated automatically by the PREIS AI Tracker, which identified the results below in the recent scientific literature. Classification (disease, country, AI method) is automatic and has not been manually validated article by article: please verify the sources before any operational use. On an internal test sample of 50 articles, AI detection agreed with a human reviewer in 86% of cases and disease in 76%. These are signals, not validated recommendations or evidence of causation.","Cordialement,
+
+Dr Raogo Hyacinthe ZABRÉ
+PREIS – Africa CDC","Best regards,
+
+Dr Raogo Hyacinthe ZABRÉ
+PREIS – Africa CDC"
+RCC,[PREIS AI] {rcc} – {n} publication(s) IA concernant votre région,"Chère/Cher Coordonnateur(trice) du RCC {rcc},
+
+PREIS AI Tracker a identifié {n} publication(s) récente(s) sur l'IA en santé publique dont l'étude porte sur des pays de votre région. Elles peuvent éclairer la surveillance ou la préparation dans vos États membres.
+
+{note}
+
+{items}
+
+Nous vous serions reconnaissants de signaler toute classification erronée (pays, maladie) : cela améliore directement le système.
+
+{signature}",[PREIS AI] {rcc} – {n} AI publication(s) concerning your region,"Dear {rcc} RCC Coordinator,
+
+PREIS AI Tracker identified {n} recent publication(s) on AI in public health whose study concerns countries in your region. They may inform surveillance or preparedness in your Member States.
+
+{note}
+
+{items}
+
+Please flag any misclassification (country, disease): it directly improves the system.
+
+{signature}","NOTE IMPORTANTE – Ce message est produit automatiquement par le système PREIS AI Tracker, qui a identifié les résultats ci-dessous dans la littérature scientifique récente. La classification (maladie, pays, méthode d'IA) est automatique et n'a pas été validée manuellement article par article : nous vous invitons à vérifier les sources avant tout usage opérationnel. Sur un échantillon test interne de 50 articles, la détection de l'IA concordait avec une relecture humaine dans 86 % des cas et la maladie dans 76 % des cas. Ces résultats sont des signaux, pas des recommandations validées ni des preuves de causalité.","IMPORTANT NOTE – This message is generated automatically by the PREIS AI Tracker, which identified the results below in the recent scientific literature. Classification (disease, country, AI method) is automatic and has not been manually validated article by article: please verify the sources before any operational use. On an internal test sample of 50 articles, AI detection agreed with a human reviewer in 86% of cases and disease in 76%. These are signals, not validated recommendations or evidence of causation.","Cordialement,
+
+Dr Raogo Hyacinthe ZABRÉ
+PREIS – Africa CDC","Best regards,
+
+Dr Raogo Hyacinthe ZABRÉ
+PREIS – Africa CDC"
+MS,[PREIS AI] {pays} – {n} publication(s) scientifique(s) sur l'IA et la surveillance,"Madame, Monsieur, point focal de surveillance – {pays},
+
+Dans le cadre de la veille scientifique PREIS menée par l'Africa CDC, notre système a identifié {n} publication(s) récente(s) portant sur {pays} ou pertinente(s) pour votre contexte (IA appliquée à la surveillance et à la riposte).
+
+{note}
+
+{items}
+
+Ces informations sont fournies à titre de veille ; elles ne remplacent pas les orientations officielles de votre ministère de la santé ni de l'Africa CDC. Pour ne plus recevoir ces messages, répondez simplement « STOP ».
+
+{signature}",[PREIS AI] {country} – {n} scientific publication(s) on AI and surveillance,"Dear surveillance focal point – {country},
+
+As part of the PREIS scientific watch run by Africa CDC, our system identified {n} recent publication(s) about {country} or relevant to your context (AI applied to surveillance and response).
+
+{note}
+
+{items}
+
+This information is provided as horizon scanning; it does not replace official guidance from your Ministry of Health or Africa CDC. To stop receiving these messages, simply reply “STOP”.
+
+{signature}","NOTE IMPORTANTE – Ce message est produit automatiquement par le système PREIS AI Tracker, qui a identifié les résultats ci-dessous dans la littérature scientifique récente. La classification (maladie, pays, méthode d'IA) est automatique et n'a pas été validée manuellement article par article : nous vous invitons à vérifier les sources avant tout usage opérationnel. Sur un échantillon test interne de 50 articles, la détection de l'IA concordait avec une relecture humaine dans 86 % des cas et la maladie dans 76 % des cas. Ces résultats sont des signaux, pas des recommandations validées ni des preuves de causalité.","IMPORTANT NOTE – This message is generated automatically by the PREIS AI Tracker, which identified the results below in the recent scientific literature. Classification (disease, country, AI method) is automatic and has not been manually validated article by article: please verify the sources before any operational use. On an internal test sample of 50 articles, AI detection agreed with a human reviewer in 86% of cases and disease in 76%. These are signals, not validated recommendations or evidence of causation.","Cordialement,
+
+Dr Raogo Hyacinthe ZABRÉ
+PREIS – Africa CDC","Best regards,
+
+Dr Raogo Hyacinthe ZABRÉ
+PREIS – Africa CDC"
+PARTENAIRE,[PREIS AI] Veille mensuelle – {n} publication(s) IA ({theme}),"Chers partenaires,
+
+PREIS (Africa CDC) publie une veille mensuelle sur l'IA appliquée à la surveillance et à la riposte épidémiques en Afrique. Ce mois-ci, {n} publication(s) correspondent à votre domaine d'intérêt ({theme}).
+
+{note}
+
+{items}
+
+Nous serions heureux d'échanger sur toute collaboration ou de recevoir vos corrections et suggestions de sources.
+
+{signature}",[PREIS AI] Monthly watch – {n} AI publication(s) ({theme}),"Dear partners,
+
+PREIS (Africa CDC) publishes a monthly watch on AI applied to epidemic surveillance and response in Africa. This month, {n} publication(s) match your area of interest ({theme}).
+
+{note}
+
+{items}
+
+We would be glad to discuss collaboration or receive your corrections and source suggestions.
+
+{signature}","NOTE IMPORTANTE – Ce message est produit automatiquement par le système PREIS AI Tracker, qui a identifié les résultats ci-dessous dans la littérature scientifique récente. La classification (maladie, pays, méthode d'IA) est automatique et n'a pas été validée manuellement article par article : nous vous invitons à vérifier les sources avant tout usage opérationnel. Sur un échantillon test interne de 50 articles, la détection de l'IA concordait avec une relecture humaine dans 86 % des cas et la maladie dans 76 % des cas. Ces résultats sont des signaux, pas des recommandations validées ni des preuves de causalité.","IMPORTANT NOTE – This message is generated automatically by the PREIS AI Tracker, which identified the results below in the recent scientific literature. Classification (disease, country, AI method) is automatic and has not been manually validated article by article: please verify the sources before any operational use. On an internal test sample of 50 articles, AI detection agreed with a human reviewer in 86% of cases and disease in 76%. These are signals, not validated recommendations or evidence of causation.","Cordialement,
+
+Dr Raogo Hyacinthe ZABRÉ
+PREIS – Africa CDC","Best regards,
+
+Dr Raogo Hyacinthe ZABRÉ
+PREIS – Africa CDC"

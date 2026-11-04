@@ -1,0 +1,35 @@
+method_family,keyword
+Machine Learning,machine learning
+Machine Learning,random forest
+Machine Learning,xgboost
+Machine Learning,support vector machine
+Machine Learning,svm
+Machine Learning,gradient boosting
+Deep Learning,deep learning
+Deep Learning,cnn
+Deep Learning,convolutional neural network
+Deep Learning,lstm
+Deep Learning,recurrent neural network
+Deep Learning,rnn
+Deep Learning,autoencoder
+NLP,natural language processing
+NLP,text mining
+NLP,named entity recognition
+NLP,topic modeling
+NLP,topic modelling
+LLM,large language model
+LLM,gpt
+LLM,bert
+LLM,transformer
+Statistical,bayesian
+Statistical,time series
+Statistical,arima
+Geospatial,spatial model
+Geospatial,spatiotemporal
+Geospatial,spatio-temporal
+Hybrid,hybrid model
+Hybrid,rule-based
+Hybrid,rules-based
+Multimodal,multimodal
+Anomaly Detection,anomaly detection
+Anomaly Detection,outlier detection

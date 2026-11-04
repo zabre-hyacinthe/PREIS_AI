@@ -1,0 +1,61 @@
+dict_type,category,keyword,keyword_nchar,keyword_nwords
+APPLICATION,Decision Support,decision support,16,2
+APPLICATION,Decision Support,resource allocation,19,2
+APPLICATION,Digital Surveillance,digital surveillance,20,2
+APPLICATION,Digital Surveillance,internet-based surveillance,27,2
+APPLICATION,Digital Surveillance,online surveillance,19,2
+APPLICATION,Early Detection,early warning,13,2
+APPLICATION,Early Detection,event detection,15,2
+APPLICATION,Early Detection,outbreak detection,18,2
+APPLICATION,Early Detection,signal detection,16,2
+APPLICATION,Environmental,environmental surveillance,26,2
+APPLICATION,Environmental,wastewater surveillance,23,2
+APPLICATION,Epidemic Intelligence,epidemic intelligence,21,2
+APPLICATION,Epidemic Intelligence,public health intelligence,26,3
+APPLICATION,Forecasting,forecasting,11,1
+APPLICATION,Forecasting,nowcasting,10,1
+APPLICATION,Forecasting,prediction,10,1
+APPLICATION,Forecasting,predictive model,16,2
+APPLICATION,Monitoring,disease monitoring,18,2
+APPLICATION,Monitoring,situational awareness,21,2
+APPLICATION,One Health,one health,10,2
+APPLICATION,One Health,zoonotic surveillance,21,2
+APPLICATION,Risk Assessment,risk assessment,15,2
+APPLICATION,Risk Assessment,risk prediction,15,2
+APPLICATION,Triage,classification,14,1
+APPLICATION,Triage,prioritization,14,1
+APPLICATION,Triage,signal triage,13,2
+METHOD,Anomaly Detection,anomaly detection,17,2
+METHOD,Anomaly Detection,outlier detection,17,2
+METHOD,Deep Learning,autoencoder,11,1
+METHOD,Deep Learning,cnn,3,1
+METHOD,Deep Learning,convolutional neural network,28,3
+METHOD,Deep Learning,deep learning,13,2
+METHOD,Deep Learning,lstm,4,1
+METHOD,Deep Learning,recurrent neural network,24,3
+METHOD,Deep Learning,rnn,3,1
+METHOD,Geospatial,spatial model,13,2
+METHOD,Geospatial,spatio-temporal,15,1
+METHOD,Geospatial,spatiotemporal,14,1
+METHOD,Hybrid,hybrid model,12,2
+METHOD,Hybrid,rule-based,10,1
+METHOD,Hybrid,rules-based,11,1
+METHOD,LLM,bert,4,1
+METHOD,LLM,gpt,3,1
+METHOD,LLM,large language model,20,3
+METHOD,LLM,transformer,11,1
+METHOD,Machine Learning,gradient boosting,17,2
+METHOD,Machine Learning,machine learning,16,2
+METHOD,Machine Learning,random forest,13,2
+METHOD,Machine Learning,support vector machine,22,3
+METHOD,Machine Learning,svm,3,1
+METHOD,Machine Learning,xgboost,7,1
+METHOD,Multimodal,multimodal,10,1
+METHOD,NLP,named entity recognition,24,3
+METHOD,NLP,natural language processing,27,3
+METHOD,NLP,text mining,11,2
+METHOD,NLP,topic modeling,14,2
+METHOD,NLP,topic modelling,15,2
+METHOD,Statistical,arima,5,1
+METHOD,Statistical,bayesian,8,1
+METHOD,Statistical,time series,11,2
