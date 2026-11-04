@@ -108,9 +108,13 @@ jobs:
           SHINYAPPS_SECRET: ${{ secrets.SHINYAPPS_SECRET }}
         run: |
           Rscript -e 'rsconnect::setAccountInfo(name="zrhyacinthepreis26", token=Sys.getenv("SHINYAPPS_TOKEN"), secret=Sys.getenv("SHINYAPPS_SECRET"))'
+          # terra epingle (GDAL 3.4 sur shinyapps.io), comme dans PREIS_Ebola_DRC_Sitrep
+          Rscript --vanilla -e 'options(repos = c(CRAN = "https://cloud.r-project.org")); if (!requireNamespace("remotes", quietly = TRUE)) install.packages("remotes"); if (requireNamespace("terra", quietly = TRUE)) remotes::install_version("terra", version = "1.9-1", upgrade = "never")'
+          # Le depot "RSPM" enregistre dans les paquets n'est pas lisible par shinyapps.io : on l'indique comme CRAN
+          Rscript --vanilla -e 'for (l in .libPaths()) for (f in Sys.glob(file.path(l, "*", "DESCRIPTION"))) { x <- readLines(f, warn = FALSE); y <- sub("^Repository: RSPM$", "Repository: CRAN", x); if (!identical(x, y)) writeLines(y, f) }'
           mkdir -p deploy/rsconnect/shinyapps.io/zrhyacinthepreis26
           cp deploy_config/PREIS_AI_Dashboard.dcf deploy/rsconnect/shinyapps.io/zrhyacinthepreis26/
-          Rscript R/06b_deploy_retry.R | tee deploy.log
+          Rscript -e 'options(repos = c(CRAN = "https://cloud.r-project.org")); source("R/06b_deploy_retry.R")' | tee deploy.log
           grep -q DEPLOY_OK deploy.log
 
       - name: Retirer les adresses e-mail des donnees brutes (depot public)
