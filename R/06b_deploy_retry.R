@@ -38,7 +38,7 @@ tryCatch({
   print(a[, intersect(c("name", "status", "url", "updated_time", "deployment"), names(a))])
 }, error = function(e) cat("applications():", conditionMessage(e), "\n"))
 tryCatch({
-  lg <- capture.output(rsconnect::showLogs(appDir = DEPLOY_DIR, account = ACCT, server = SRV, entries = 30, streaming = FALSE))
+  lg <- capture.output(rsconnect::showLogs(appName = "PREIS_AI_Dashboard", account = ACCT, server = SRV, entries = 30, streaming = FALSE))
   cat(tail(lg, 30), sep = "\n")
 }, error = function(e) cat("showLogs():", conditionMessage(e), "\n"))
 cat(if (ok) "\nDEPLOY_OK\n" else "\nDEPLOY_FAILED\n")

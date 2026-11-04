@@ -61,6 +61,8 @@ jobs:
             any::scales
             any::htmltools
             any::rsconnect
+            any::cpp11
+            any::progress
           cache: always
 
       - name: Adapter les chemins Windows (copie de travail seulement)
@@ -77,6 +79,7 @@ jobs:
         run: Rscript --vanilla R/AI/00_run_pipeline_fixed.R
 
       - name: Controle du tracker
+        id: tracker
         run: |
           test -s data/enriched/ai/ai_tracker_final.csv
           find data/enriched/ai/ai_tracker_final.csv -mmin -170 | grep -q . || { echo "Tracker non regenere"; exit 1; }
@@ -110,11 +113,13 @@ jobs:
           grep -q DEPLOY_OK deploy.log
 
       - name: Retirer les adresses e-mail des donnees brutes (depot public)
+        if: ${{ always() && steps.tracker.outcome == 'success' }}
         run: |
           find data/raw/ai -name '*.csv' -print0 | xargs -0 sed -i -E 's/[A-Za-z0-9._%+-]+@[A-Za-z0-9-]+(\.[A-Za-z0-9-]+)*\.[A-Za-z]{2,}//g'
           if grep -rlE '[A-Za-z0-9._%+-]+@[A-Za-z0-9-]+\.[A-Za-z]{2,}' data/raw/ai data/alerting; then echo "Adresse restante : arret"; exit 1; fi
 
       - name: Sauvegarder l'etat de collecte et les candidats
+        if: ${{ always() && steps.tracker.outcome == 'success' }}
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
