@@ -1,0 +1,5 @@
+# Exclus de l'archive de version (Zenodo) ; restent utilises par les workflows.
+data/raw/** export-ignore
+data/alerting/** export-ignore
+data/outputs/** export-ignore
+maps/africa_countries_rcc.geojson export-ignore
