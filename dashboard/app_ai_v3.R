@@ -475,6 +475,7 @@ if (!is.null(centroid_file) && !is.na(centroid_file) && file.exists(centroid_fil
 ## UI
 ## ------------------------------------------------------------
 ui <- dashboardPage(
+  title = "PREIS AI Tracker",
   skin = "blue",
   
   dashboardHeader(
@@ -487,7 +488,7 @@ ui <- dashboardPage(
   dashboardSidebar(
     sidebarMenu(
       menuItem("Overview",              tabName="overview",      icon=icon("chart-line")),
-      menuItem("IA x Maladie x Pays",   tabName="disease_intel", icon=icon("virus")),       # [C3] NOUVEAU
+      menuItem("AI x Disease x Country",   tabName="disease_intel", icon=icon("virus")),       # [C3] NOUVEAU
       menuItem("Methods & Applications",tabName="methods",       icon=icon("microchip")),
       menuItem("Focus Africa",          tabName="africa",        icon=icon("globe-africa")),
       menuItem("Priority Intelligence", tabName="priority_intel",icon=icon("triangle-exclamation")),
