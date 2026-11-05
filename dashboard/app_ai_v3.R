@@ -480,7 +480,7 @@ ui <- dashboardPage(
   dashboardHeader(
     title = tags$span(
       style="font-weight:700; font-size:15px;",
-      "PREIS-AI Intelligence"
+      "PREIS AI Tracker"
     )
   ),
   
@@ -558,7 +558,7 @@ ui <- dashboardPage(
       box(width=12, status="primary", solidHeader=FALSE,
           div(class="preis-header",
               div(class="preis-title",
-                  "PREIS-AI — AI Surveillance Intelligence Observatory"),
+                  "PREIS AI Tracker — Dashboard"),
               div(class="preis-sub",
                   "Monitoring AI applications for public health surveillance in Africa | ",
                   tags$b("Source: "), basename(data_file), " | ",

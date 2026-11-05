@@ -44,7 +44,7 @@ for (i in 1:4) {
   if (i >= 3) options(rsconnect.http = "curl")
   res <- tryCatch({
     rsconnect::deployApp(appDir = DEPLOY_DIR, appName = "PREIS_AI_Dashboard",
-      appTitle = "PREIS-AI Intelligence Observatory", account = ACCT, server = SRV,
+      appTitle = "PREIS AI Tracker Dashboard", account = ACCT, server = SRV,
       forceUpdate = TRUE, launch.browser = FALSE)
     TRUE
   }, error = function(e) { cat("ERREUR:", conditionMessage(e), "\n"); FALSE })

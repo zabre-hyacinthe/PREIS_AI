@@ -1,4 +1,4 @@
-name: PREIS AI - Weekly pipeline (cloud)
+name: PREIS AI Tracker - Weekly pipeline (cloud)
 
 # Lundi 03:00 UTC (06:00 Nairobi). Lancement manuel : publish=false = test sans publication ni deploiement. Aucun e-mail n'est envoye par ce workflow.
 on:
