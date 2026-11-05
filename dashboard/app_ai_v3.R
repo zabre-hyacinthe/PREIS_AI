@@ -807,9 +807,11 @@ server <- function(input, output, session) {
              "High-priority records", icon=icon("triangle-exclamation"), color="red")
   })
   output$vb_africa <- renderValueBox({
-    n <- sum(filtered_data()$africa_relevance_score > 0, na.rm=TRUE)
+    d <- filtered_data()
+    n <- sum(d$africa_relevance_score > 0, na.rm=TRUE)
+    n_map <- sum(d$africa_relevance_score > 0 & !is.na(d$country) & d$country != "Unspecified", na.rm=TRUE)
     valueBox(scales::comma(n),
-             "Africa-linked records", icon=icon("globe-africa"), color="green")
+             paste0("Africa-linked (", scales::comma(n_map), " on map)"), icon=icon("globe-africa"), color="green")
   })
   output$vb_disease <- renderValueBox({                              # [C4]
     n <- n_distinct(filtered_data()$disease_primary[
@@ -1257,7 +1259,7 @@ server <- function(input, output, session) {
                     labels=names(rcc_colors),
                     title="Regional Coordinating Centre (fill)",
                     opacity=1) %>%
-      addControl(html="<div style='background:rgba(255,255,255,.9);padding:5px 8px;border-radius:4px;font-size:11px;color:#263238'><span style='display:inline-block;width:10px;height:10px;border-radius:50%;background:#263238;margin-right:5px'></span>Circle size = number of records<br/><span style='display:inline-block;width:10px;height:10px;border:2px solid #263238;margin-right:5px;vertical-align:middle'></span>Dark outline = country with records<br/><span style='color:#607D8B'>Only countries validated from title/dominant text are counted</span></div>",
+      addControl(html="<div style='background:rgba(255,255,255,.9);padding:5px 8px;border-radius:4px;font-size:11px;color:#263238'><span style='display:inline-block;width:10px;height:10px;border-radius:50%;background:#263238;margin-right:5px'></span>Circle size = number of records<br/><span style='display:inline-block;width:10px;height:10px;border:2px solid #263238;margin-right:5px;vertical-align:middle'></span>Dark outline = country with records<br/><span style='color:#607D8B'>Only countries validated from title/dominant text are counted; Africa-linked records without a named country are not mapped</span></div>",
                  position="bottomright")
   })
   
