@@ -34,6 +34,13 @@ for (f in c("dashboard/data/dashboard/alerts_ai.csv", "data/dashboard/ai_intelli
   dir.create(dirname(file.path(DEPLOY_DIR, f)), recursive = TRUE, showWarnings = FALSE)
   cat("copie", f, file.copy(file.path(ROOT, f), file.path(DEPLOY_DIR, f), overwrite = TRUE), "\n")
 }
+# [20261114] PREIS AI Atlas: module + registry data (the app hides gracefully if they are absent)
+if (file.exists(file.path(ROOT, "dashboard", "registry_module.R"))) cat("copie registry_module.R", file.copy(file.path(ROOT, "dashboard", "registry_module.R"), file.path(DEPLOY_DIR, "registry_module.R"), overwrite = TRUE), "\n")
+dir.create(file.path(DEPLOY_DIR, "registry_data"), recursive = TRUE, showWarnings = FALSE)
+for (f in c("candidates_latest.csv", "registry_platforms.csv", "disease_gap_table.csv", "registry_leads.csv", "registry_by_country.csv", "registry_summary.csv")) {
+  src <- Filter(file.exists, c(file.path(ROOT, "registry_data", f), file.path(ROOT, "PREIS_REGISTRY", "registry_data", f)))
+  if (length(src)) cat("copie registry_data/", f, file.copy(src[1], file.path(DEPLOY_DIR, "registry_data", f), overwrite = TRUE), "\n") else cat("ABSENT registry_data/", f, "\n")
+}
 if (file.exists(file.path(DEPLOY_DIR, "config/alert_recipients_ai.csv"))) cat("ATTENTION : ancienne copie deploy/config/alert_recipients_ai.csv presente (a retirer du dossier deploy)\n")
 cat("Dossier:", DEPLOY_DIR, "\n")
 cat("app.R modifie:", format(file.mtime(file.path(DEPLOY_DIR, "app.R"))), "\n")

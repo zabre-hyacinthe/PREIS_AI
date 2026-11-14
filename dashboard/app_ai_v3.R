@@ -35,6 +35,15 @@ sf::sf_use_s2(FALSE)
 ## PATHS
 ## ------------------------------------------------------------
 project_dir <- "D:/PREIS_AI_CLEAN"
+# [REGISTRY] PREIS AI Atlas tab (added 14 Nov 2026). If the module file is absent the tab shows a notice and nothing else changes.
+reg_dir <- { .c1 <- file.path(project_dir, "registry_data"); .c2 <- file.path(project_dir, "PREIS_REGISTRY", "registry_data"); if (dir.exists(.c1)) .c1 else .c2 }
+.reg_mod <- Filter(file.exists, c(file.path(project_dir, "registry_module.R"), file.path(project_dir, "dashboard", "registry_module.R")))
+if (length(.reg_mod)) {
+  source(.reg_mod[1], local = TRUE)
+} else {
+  registry_ui <- function() tabItem(tabName = "registry", box(width = 12, title = "PREIS AI Atlas", "Module not installed on this server."))
+  registry_server <- function(input, output, session, reg_dir, filtered_data) invisible(NULL)
+}
 
 # [C1] Source principale : alerts_ai.csv (scores recalculés corrects)
 data_file <- file.path(
@@ -494,6 +503,7 @@ ui <- dashboardPage(
       menuItem("Priority Intelligence", tabName="priority_intel",icon=icon("triangle-exclamation")),
       menuItem("All Records",           tabName="records",       icon=icon("table")),
       menuItem("Downloads",             tabName="downloads",     icon=icon("download")),
+      menuItem("PREIS AI Atlas",        tabName="registry",      icon=icon("clipboard-list")),   # [REGISTRY]
       menuItem("Methods and limits",    tabName="limits",        icon=icon("circle-info"))
     ),
     br(),
@@ -710,6 +720,7 @@ ui <- dashboardPage(
               )
       )
       ,
+      registry_ui(),   # [REGISTRY]
       ## [C22] Methods and limits (28 Oct 2026)
       tabItem(tabName="limits",
               fluidRow(
@@ -767,6 +778,8 @@ server <- function(input, output, session) {
     x
   })
   
+  registry_server(input, output, session, reg_dir, filtered_data)   # [REGISTRY] (after filtered_data)
+
   # Badges nouvelles publications
   output$pub_badges <- renderUI({
     x       <- filtered_data()

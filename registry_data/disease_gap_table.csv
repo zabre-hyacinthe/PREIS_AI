@@ -1,0 +1,17 @@
+"disease","priority_disease_list","core_explicit_AI_all_world","africa_linked","africa_linked_with_named_country"
+"Ebola","yes",33,14,2
+"Marburg","yes",4,0,0
+"Lassa fever","yes",11,8,3
+"Crimean-Congo haemorrhagic fever","yes",0,0,0
+"Mpox","yes",34,10,1
+"Cholera","yes",5,3,2
+"Measles","yes",12,1,0
+"Meningitis","yes",3,2,1
+"Yellow fever","yes",1,0,0
+"Dengue","yes",51,1,0
+"COVID-19","no",585,29,10
+"Malaria","no",29,19,10
+"HIV","no",37,13,9
+"Tuberculosis","no",17,3,2
+"Antimicrobial resistance","no",27,7,2
+"Influenza","no",74,1,1
