@@ -34,7 +34,7 @@ sf::sf_use_s2(FALSE)
 ## ------------------------------------------------------------
 ## PATHS
 ## ------------------------------------------------------------
-project_dir <- "D:/PREIS_AI_CLEAN"
+project_dir <- if (dir.exists(file.path(getwd(), "dashboard", "data"))) getwd() else "D:/PREIS_AI_CLEAN"   # server: bundle folder; local: project folder
 # [REGISTRY] PREIS AI Atlas tab (added 14 Nov 2026). If the module file is absent the tab shows a notice and nothing else changes.
 reg_dir <- { .c1 <- file.path(project_dir, "registry_data"); .c2 <- file.path(project_dir, "PREIS_REGISTRY", "registry_data"); if (dir.exists(.c1)) .c1 else .c2 }
 .reg_mod <- Filter(file.exists, c(file.path(project_dir, "registry_module.R"), file.path(project_dir, "dashboard", "registry_module.R")))
