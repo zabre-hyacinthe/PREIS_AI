@@ -6,7 +6,7 @@
 ## NOT YET RUN IN R when written. ASCII only (accents as \u escapes).
 ## ============================================================
 REG_FORM_URL <- "https://forms.gle/LSUZpjn4W6pKHpry9"
-REG_UNSPEC <- c("Unspecified", "Non sp\u00e9cifi\u00e9", "Non specifie", "")
+REG_UNSPEC <- c("Unspecified", "Non sp\u00e9cifi\u00e9", "Non specifi\u00e9", "Non specifie", "Non sp\u00e9cifie", "")
 
 reg_read <- function(reg_dir, f) {
   p <- file.path(reg_dir, f)
@@ -97,6 +97,16 @@ registry_ui <- function() {
 }
 
 registry_server <- function(input, output, session, reg_dir, filtered_data) {
+  ## [LANG 20261115] libelles des graphiques de l Atlas
+  REG_L <- list(
+    fr = c("Records"="Enregistrements", "Records with a study country"="Enregistrements avec un pays d'\u00e9tude", "Year of publication"="Ann\u00e9e de publication"),
+    pt = c("Records"="Registos", "Records with a study country"="Registos com pa\u00eds de estudo", "Year of publication"="Ano de publica\u00e7\u00e3o"),
+    es = c("Records"="Registros", "Records with a study country"="Registros con pa\u00eds de estudio", "Year of publication"="A\u00f1o de publicaci\u00f3n"),
+    ar = c("Records"="\u0627\u0644\u0633\u062c\u0644\u0627\u062a", "Records with a study country"="\u0633\u062c\u0644\u0627\u062a \u0630\u0627\u062a \u0628\u0644\u062f \u062f\u0631\u0627\u0633\u0629", "Year of publication"="\u0633\u0646\u0629 \u0627\u0644\u0646\u0634\u0631"),
+    sw = c("Records"="Rekodi", "Records with a study country"="Rekodi zenye nchi ya utafiti", "Year of publication"="Mwaka wa chapisho")
+  )
+  tx_reg <- function(s) { l <- input$ui_lang; if (!is.null(l) && !(identical(l, "ar") && !PREIS_RAGG) && l %in% names(REG_L) && s %in% names(REG_L[[l]])) unname(REG_L[[l]][[s]]) else s }
+  tvfr <- function() { l <- input$ui_lang; function(x) preis_tv(x, l) }
   cand  <- reactive({ reg_read(reg_dir, "candidates_latest.csv") })
   leads <- reactive({ reg_read(reg_dir, "registry_leads.csv") })
   plat  <- reactive({ reg_read(reg_dir, "registry_platforms.csv") })
@@ -141,8 +151,8 @@ registry_server <- function(input, output, session, reg_dir, filtered_data) {
     d <- d[order(d$Freq), ]; d$application <- factor(d$application, levels = d$application)
     ggplot(d, aes(application, Freq, fill = application)) + geom_col(show.legend = FALSE, width = 0.7) +
       geom_text(aes(label = Freq), hjust = -0.2, size = 5, fontface = "bold") +
-      scale_fill_manual(values = app_cols) + scale_x_discrete(labels = function(v) stringr::str_wrap(v, 28)) +
-      scale_y_continuous(expand = expansion(mult = c(0, 0.15))) + coord_flip() + labs(x = NULL, y = "Records") + reg_theme()
+      scale_fill_manual(values = app_cols) + scale_x_discrete(labels = local({ f <- tvfr(); function(v) stringr::str_wrap(f(v), 28) })) +
+      scale_y_continuous(expand = expansion(mult = c(0, 0.15))) + coord_flip() + labs(x = NULL, y = tx_reg("Records")) + reg_theme()
   })
 
   output$reg_plot_dis <- renderPlot({
@@ -151,7 +161,7 @@ registry_server <- function(input, output, session, reg_dir, filtered_data) {
     d <- d[order(-d$Freq), ][seq_len(min(12, nrow(d))), ]; d <- d[order(d$Freq), ]; d$disease <- factor(d$disease, levels = d$disease)
     ggplot(d, aes(disease, Freq)) + geom_col(fill = "#7A1D2F", width = 0.7) +
       geom_text(aes(label = Freq), hjust = -0.2, size = 5, fontface = "bold") +
-      scale_y_continuous(expand = expansion(mult = c(0, 0.15))) + coord_flip() + labs(x = NULL, y = "Records") + reg_theme()
+      scale_x_discrete(labels = tvfr()) + scale_y_continuous(expand = expansion(mult = c(0, 0.15))) + coord_flip() + labs(x = NULL, y = tx_reg("Records")) + reg_theme()
   })
 
   heat_data <- reactive({
@@ -168,9 +178,9 @@ registry_server <- function(input, output, session, reg_dir, filtered_data) {
     ggplot(d, aes(application, disease, fill = Freq)) + geom_tile(color = "white", linewidth = 1) +
       geom_text(aes(label = Freq, color = Freq > max(Freq) * 0.55), size = 5.5, fontface = "bold", show.legend = FALSE) +
       scale_color_manual(values = c("TRUE" = "white", "FALSE" = "#1F2A30")) +
-      scale_fill_gradient(low = "#F6E6EA", high = "#7A1D2F", name = "Records") +
-      scale_x_discrete(labels = function(v) stringr::str_wrap(v, 16), position = "top") +
-      labs(x = NULL, y = NULL) + reg_theme() + theme(legend.position = "right", axis.text.x = element_text(size = 13))
+      scale_fill_gradient(low = "#F6E6EA", high = "#7A1D2F", name = tx_reg("Records")) +
+      scale_x_discrete(labels = local({ f <- tvfr(); function(v) stringr::str_wrap(f(v), 16) }), position = "top") +
+      scale_y_discrete(labels = tvfr()) + labs(x = NULL, y = NULL) + reg_theme() + theme(legend.position = "right", axis.text.x = element_text(size = 13))
   })
   output$reg_heat_note <- renderText({
     x <- base(); y <- heat_data()
@@ -183,15 +193,15 @@ registry_server <- function(input, output, session, reg_dir, filtered_data) {
     ggplot(d, aes(rcc, Freq, fill = rcc)) + geom_col(show.legend = FALSE, width = 0.7) +
       geom_text(aes(label = Freq), hjust = -0.2, size = 5, fontface = "bold") +
       scale_fill_manual(values = rcc_colors, na.value = "grey70") + scale_y_continuous(expand = expansion(mult = c(0, 0.15))) +
-      coord_flip() + labs(x = NULL, y = "Records with a study country") + reg_theme()
+      scale_x_discrete(labels = tvfr()) + coord_flip() + labs(x = NULL, y = tx_reg("Records with a study country")) + reg_theme()
   })
   output$reg_plot_cty <- renderPlot({
     x <- base(); x <- x[!(x$country %in% REG_UNSPEC), , drop = FALSE]; need_rows(x)
     d <- as.data.frame(table(country = x$country, rcc = x$rcc), stringsAsFactors = FALSE); d <- d[d$Freq > 0, ]
     d <- d[order(-d$Freq), ][seq_len(min(12, nrow(d))), ]; d <- d[order(d$Freq), ]; d$country <- factor(d$country, levels = unique(d$country))
     ggplot(d, aes(country, Freq, fill = rcc)) + geom_col(width = 0.7) + geom_text(aes(label = Freq), hjust = -0.2, size = 5, fontface = "bold") +
-      scale_fill_manual(values = rcc_colors, na.value = "grey70") + scale_y_continuous(expand = expansion(mult = c(0, 0.15))) +
-      coord_flip() + labs(x = NULL, y = "Records") + reg_theme()
+      scale_fill_manual(values = rcc_colors, na.value = "grey70", labels = tvfr()) + scale_y_continuous(expand = expansion(mult = c(0, 0.15))) +
+      scale_x_discrete(labels = tvfr()) + coord_flip() + labs(x = NULL, y = tx_reg("Records")) + reg_theme()
   })
 
   output$reg_plot_year <- renderPlot({
@@ -199,8 +209,8 @@ registry_server <- function(input, output, session, reg_dir, filtered_data) {
     d <- as.data.frame(table(year = x$year_num, application = x$application_type_primary), stringsAsFactors = FALSE)
     d$year <- as.integer(as.character(d$year)); d <- d[d$Freq > 0, ]
     ggplot(d, aes(year, Freq, fill = application)) + geom_col(width = 0.75) +
-      scale_fill_manual(values = app_cols) + scale_x_continuous(breaks = seq(2015, max(d$year), 1)) +
-      guides(fill = guide_legend(nrow = 3)) + labs(x = "Year of publication", y = "Records") + reg_theme()
+      scale_fill_manual(values = app_cols, labels = tvfr()) + scale_x_continuous(breaks = seq(2015, max(d$year), 1)) +
+      guides(fill = guide_legend(nrow = 3)) + labs(x = tx_reg("Year of publication"), y = tx_reg("Records")) + reg_theme()
   })
 
   output$reg_map <- renderLeaflet({
